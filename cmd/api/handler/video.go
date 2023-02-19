@@ -8,8 +8,8 @@ import (
 	"github.com/Pinklr/tiktok_demo/pkg/constants"
 	"github.com/Pinklr/tiktok_demo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/hertz-contrib/jwt"
 	"log"
-	"strconv"
 	"time"
 )
 
@@ -17,7 +17,8 @@ func UploadVideoHandler(ctx context.Context, c *app.RequestContext) {
 	fileHeader, err := c.FormFile("data")
 	title := c.PostForm("title")
 	// 获取用户id
-	userId, _ := strconv.ParseInt(c.Query("user_id"), 10, 64)
+	claims := jwt.ExtractClaims(ctx, c)
+	userId := int64(claims[constants.IdentityKey].(float64))
 	log.Println(title)
 	if err != nil {
 		SendResponse(c, err, nil, "data")
@@ -31,7 +32,7 @@ func UploadVideoHandler(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	playurl := constants.PlayURLPrefix + "http://localhost:9902/static/video/"
+	playurl := constants.PlayURLPrefix + filename
 	err = rpc.UploadVideo(ctx, &video.VideoActionRequest{Video: &video.Video{
 		Author: &video.User{
 			Id: userId,
@@ -41,7 +42,7 @@ func UploadVideoHandler(ctx context.Context, c *app.RequestContext) {
 		FavoriteCount: 0,
 		CommentCount:  0,
 		IsFavorite:    false,
-		Title:         "",
+		Title:         title,
 	}})
 	if err != nil {
 		SendResponse(c, err, nil, "data")

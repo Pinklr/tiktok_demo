@@ -1,14 +1,29 @@
 package main
 
 import (
+	"github.com/Pinklr/tiktok_demo/cmd/video/dal"
 	video "github.com/Pinklr/tiktok_demo/kitex_gen/video/videoservice"
+	"github.com/cloudwego/kitex/server"
 	"log"
+	"net"
 )
 
-func main() {
-	svr := video.NewServer(new(VideoServiceImpl))
+func Init() {
+	dal.Init()
+}
 
-	err := svr.Run()
+func main() {
+	Init()
+	addr, err := net.ResolveTCPAddr("tcp", "0.0.0.0:8889")
+	if err != nil {
+		panic(err)
+	}
+	svr := video.NewServer(
+		new(VideoServiceImpl),
+		server.WithServiceAddr(addr),
+	)
+
+	err = svr.Run()
 
 	if err != nil {
 		log.Println(err.Error())

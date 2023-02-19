@@ -14,7 +14,7 @@ var videoClient videoservice.Client
 func InitVideoRPC() {
 	c, err := videoservice.NewClient(
 		constants.VideoServiceName,
-		client.WithHostPorts("0.0.0.0:8899"),
+		client.WithHostPorts("0.0.0.0:8889"),
 	)
 
 	if err != nil {
