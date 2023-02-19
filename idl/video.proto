@@ -27,3 +27,53 @@ message Video {
   bool is_favorite = 7; // true-已点赞，false-未点赞
   string title = 8; // 视频标题
 }
+
+message BaseResp {
+  int64 status_code = 1;
+  string status_message = 2;
+  int64 service_time = 3;
+}
+
+// Feed: 返回按投稿时间倒序的视频列表,
+message FeedRequest {
+  int64 latest_time = 1;
+}
+
+message FeedResponse {
+  int64 next_time = 1;
+  repeated Video videos = 2;
+  BaseResp base_resp = 3;
+}
+
+//Action: 视频投稿
+message VideoActionRequest{
+  Video video = 1;
+}
+message VideoActionResponse{
+  BaseResp base_resp = 1;
+}
+
+//list: 返回一个用户投稿过的所有视频
+message ListRequest {
+  int64 userID = 1;
+}
+message ListResponse {
+  repeated Video videos = 1;
+  BaseResp base_resp = 2;
+}
+
+//MGetVideo: 输入一个video id列表，查询并返回Video列表
+message MGetVideoRequest {
+  repeated int64 videoIDs = 1;
+}
+message MGetVideoResponse {
+  repeated Video videos = 1;
+  BaseResp base_resp = 2;
+}
+
+service VideoService {
+  rpc Feed(FeedRequest) returns (FeedResponse) {}
+  rpc VideoAction(VideoActionRequest) returns (VideoActionResponse) {}
+  rpc List(ListRequest) returns (ListResponse) {}
+  rpc MGetVideo(MGetVideoRequest) returns (MGetVideoResponse) {}
+}
