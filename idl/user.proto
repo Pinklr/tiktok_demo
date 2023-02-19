@@ -1,0 +1,68 @@
+syntax = "proto3";
+package douyin.core;
+
+option go_package = "user";
+
+message User {
+  int64 id = 1; // 用户id
+  string name = 2; // 用户名称
+  optional int64 follow_count = 3; // 关注总数
+  optional int64 follower_count = 4; // 粉丝总数
+  bool is_follow = 5; // true-已关注，false-未关注
+  optional string avatar = 6; //用户头像
+  optional string background_image = 7; //用户个人页顶部大图
+  optional string signature = 8; //个人简介
+  optional int64 total_favorited = 9; //获赞数量
+  optional int64 work_count = 10; //作品数量
+  optional int64 favorite_count = 11; //点赞数量
+}
+
+message BaseResp {
+  int64 status_code = 1;
+  string status_message = 2;
+  int64 service_time = 3;
+}
+
+
+message CreateUserRequest {
+  string user_name = 1;
+  string password = 2;
+}
+
+message CreateUserResponse {
+  BaseResp base_resp = 1;
+}
+
+message MGetUserRequest {
+  repeated int64 user_ids = 1;
+}
+
+message MGetUserResponse {
+  repeated User users = 1;
+  BaseResp base_resp = 2;
+}
+
+message CheckUserRequest {
+  string user_name = 1;
+  string password = 2;
+}
+
+message CheckUserResponse {
+  int64 user_id = 1;
+  BaseResp base_resp = 2;
+}
+
+message GetUserInfoRequest {
+  int64 user_id = 1;
+}
+message GetUserInfoResponse {
+  User user = 1;
+  BaseResp base_resp = 2;
+}
+
+service UserService {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  rpc MGetUser(MGetUserRequest) returns (MGetUserResponse) {}
+  rpc CheckUser(CheckUserRequest) returns (CheckUserResponse) {}
+  rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {}
+}
