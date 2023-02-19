@@ -33,3 +33,14 @@ func UploadVideo(ctx context.Context, req *video.VideoActionRequest) error {
 	}
 	return nil
 }
+
+func Feed(ctx context.Context, req *video.FeedRequest) ([]*video.Video, int64, error) {
+	resp, err := videoClient.Feed(ctx, req)
+	if err != nil {
+		return nil, 0, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+	}
+	return resp.Videos, resp.NextTime, nil
+}

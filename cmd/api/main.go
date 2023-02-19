@@ -93,5 +93,7 @@ func main() {
 	publish.Use(authMiddleware.MiddlewareFunc())
 	publish.POST("action/", handler.UploadVideoHandler)
 
+	v1.GET("feed", handler.FeedHandler)
+
 	r.Spin()
 }

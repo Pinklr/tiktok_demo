@@ -14,7 +14,23 @@ type VideoServiceImpl struct{}
 
 // Feed implements the VideoServiceImpl interface.
 func (s *VideoServiceImpl) Feed(ctx context.Context, req *video.FeedRequest) (resp *video.FeedResponse, err error) {
-	// TODO: Your code here...
+	resp = new(video.FeedResponse)
+	var latestTime int64 = 0
+	if req != nil {
+		latestTime = req.LatestTime
+	}
+	if latestTime < 0 {
+		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
+		return
+	}
+	videos, nextTime, err := service.Feed(ctx, latestTime)
+	if err != nil {
+		resp.BaseResp = pack.BuildBaseResp(err)
+		return
+	}
+	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp.Videos = videos
+	resp.NextTime = nextTime
 	return
 }
 

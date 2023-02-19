@@ -8,8 +8,10 @@ import (
 	"github.com/Pinklr/tiktok_demo/pkg/constants"
 	"github.com/Pinklr/tiktok_demo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/hertz-contrib/jwt"
 	"log"
+	"strconv"
 	"time"
 )
 
@@ -49,4 +51,27 @@ func UploadVideoHandler(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	SendResponse(c, errno.Success, nil, "data")
+}
+
+func FeedHandler(ctx context.Context, c *app.RequestContext) {
+	latestTime, err := strconv.ParseInt(c.Query("latest_time"), 10, 64)
+	if err != nil {
+		SendResponse(c, err, nil, "data")
+		return
+	}
+	var req video.FeedRequest
+	req.LatestTime = latestTime
+
+	videos, nextTime, err := rpc.Feed(ctx, &req)
+	if err != nil {
+		SendResponse(c, err, nil, "data")
+		return
+	}
+	//SendResponse(c, errno.Success, videos, "video_list")
+	c.JSON(consts.StatusOK, map[string]interface{}{
+		"status_code": errno.Success.ErrCode,
+		"status_msg":  errno.Success.ErrMsg,
+		"next_time":   nextTime,
+		"video_list":  videos,
+	})
 }
