@@ -28,7 +28,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"CommentList":   kitex.NewMethodInfo(commentListHandler, newCommentListArgs, newCommentListResult, false),
 	}
 	extra := map[string]interface{}{
-		"PackageName": "douyin.core",
+		"PackageName": "douyin.interact",
 	}
 	svcInfo := &kitex.ServiceInfo{
 		ServiceName:     serviceName,

@@ -88,5 +88,10 @@ func main() {
 	user.Use(authMiddleware.MiddlewareFunc())
 	user.GET("/", handler.GetUserHandler)
 	user.POST("refresh/", authMiddleware.RefreshHandler)
+
+	publish := v1.Group("publish/")
+	publish.Use(authMiddleware.MiddlewareFunc())
+	publish.POST("action/", handler.UploadVideoHandler)
+
 	r.Spin()
 }

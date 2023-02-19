@@ -1,5 +1,5 @@
 syntax = "proto3";
-package douyin.core;
+package douyin.interact;
 
 option go_package = "interact";
 message BaseResp {

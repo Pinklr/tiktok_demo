@@ -28,7 +28,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"GetUserInfo": kitex.NewMethodInfo(getUserInfoHandler, newGetUserInfoArgs, newGetUserInfoResult, false),
 	}
 	extra := map[string]interface{}{
-		"PackageName": "douyin.core",
+		"PackageName": "douyin.user",
 	}
 	svcInfo := &kitex.ServiceInfo{
 		ServiceName:     serviceName,

@@ -9,4 +9,6 @@ const (
 	UsernameQueryKey    = "username"
 	PasswordQueryKey    = "password"
 	MySQLDefaultDsn     = "gorm:gorm@tcp(localhost:3306)/douyin?charset=utf8&parseTime=True&loc=Local"
+	VideoSaveDirectory  = "/Users/rdstihz/nginx/static/video/"
+	PlayURLPrefix       = "http://localhost:9002/static/video/"
 )
