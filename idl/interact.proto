@@ -1,0 +1,4 @@
+syntax = "proto3";
+package douyin.core;
+
+option go_package = "interact";
