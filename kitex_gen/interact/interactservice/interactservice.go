@@ -22,10 +22,13 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "InteractService"
 	handlerType := (*interact.InteractService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"Favorite":      kitex.NewMethodInfo(favoriteHandler, newFavoriteArgs, newFavoriteResult, false),
-		"FavoriteList":  kitex.NewMethodInfo(favoriteListHandler, newFavoriteListArgs, newFavoriteListResult, false),
-		"CommentAction": kitex.NewMethodInfo(commentActionHandler, newCommentActionArgs, newCommentActionResult, false),
-		"CommentList":   kitex.NewMethodInfo(commentListHandler, newCommentListArgs, newCommentListResult, false),
+		"Favorite":              kitex.NewMethodInfo(favoriteHandler, newFavoriteArgs, newFavoriteResult, false),
+		"FavoriteList":          kitex.NewMethodInfo(favoriteListHandler, newFavoriteListArgs, newFavoriteListResult, false),
+		"CommentAction":         kitex.NewMethodInfo(commentActionHandler, newCommentActionArgs, newCommentActionResult, false),
+		"CommentList":           kitex.NewMethodInfo(commentListHandler, newCommentListArgs, newCommentListResult, false),
+		"CountVideoGetFavorite": kitex.NewMethodInfo(countVideoGetFavoriteHandler, newCountVideoGetFavoriteArgs, newCountVideoGetFavoriteResult, false),
+		"CountVideoGetComment":  kitex.NewMethodInfo(countVideoGetCommentHandler, newCountVideoGetCommentArgs, newCountVideoGetCommentResult, false),
+		"CountUserGetFavorite":  kitex.NewMethodInfo(countUserGetFavoriteHandler, newCountUserGetFavoriteArgs, newCountUserGetFavoriteResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "douyin.interact",
@@ -621,6 +624,441 @@ func (p *CommentListResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
+func countVideoGetFavoriteHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	switch s := arg.(type) {
+	case *streaming.Args:
+		st := s.Stream
+		req := new(interact.CountVideoGetFavoriteRequest)
+		if err := st.RecvMsg(req); err != nil {
+			return err
+		}
+		resp, err := handler.(interact.InteractService).CountVideoGetFavorite(ctx, req)
+		if err != nil {
+			return err
+		}
+		if err := st.SendMsg(resp); err != nil {
+			return err
+		}
+	case *CountVideoGetFavoriteArgs:
+		success, err := handler.(interact.InteractService).CountVideoGetFavorite(ctx, s.Req)
+		if err != nil {
+			return err
+		}
+		realResult := result.(*CountVideoGetFavoriteResult)
+		realResult.Success = success
+	}
+	return nil
+}
+func newCountVideoGetFavoriteArgs() interface{} {
+	return &CountVideoGetFavoriteArgs{}
+}
+
+func newCountVideoGetFavoriteResult() interface{} {
+	return &CountVideoGetFavoriteResult{}
+}
+
+type CountVideoGetFavoriteArgs struct {
+	Req *interact.CountVideoGetFavoriteRequest
+}
+
+func (p *CountVideoGetFavoriteArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetReq() {
+		p.Req = new(interact.CountVideoGetFavoriteRequest)
+	}
+	return p.Req.FastRead(buf, _type, number)
+}
+
+func (p *CountVideoGetFavoriteArgs) FastWrite(buf []byte) (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.FastWrite(buf)
+}
+
+func (p *CountVideoGetFavoriteArgs) Size() (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.Size()
+}
+
+func (p *CountVideoGetFavoriteArgs) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetReq() {
+		return out, fmt.Errorf("No req in CountVideoGetFavoriteArgs")
+	}
+	return proto.Marshal(p.Req)
+}
+
+func (p *CountVideoGetFavoriteArgs) Unmarshal(in []byte) error {
+	msg := new(interact.CountVideoGetFavoriteRequest)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Req = msg
+	return nil
+}
+
+var CountVideoGetFavoriteArgs_Req_DEFAULT *interact.CountVideoGetFavoriteRequest
+
+func (p *CountVideoGetFavoriteArgs) GetReq() *interact.CountVideoGetFavoriteRequest {
+	if !p.IsSetReq() {
+		return CountVideoGetFavoriteArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+func (p *CountVideoGetFavoriteArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+type CountVideoGetFavoriteResult struct {
+	Success *interact.CountResponse
+}
+
+var CountVideoGetFavoriteResult_Success_DEFAULT *interact.CountResponse
+
+func (p *CountVideoGetFavoriteResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetSuccess() {
+		p.Success = new(interact.CountResponse)
+	}
+	return p.Success.FastRead(buf, _type, number)
+}
+
+func (p *CountVideoGetFavoriteResult) FastWrite(buf []byte) (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.FastWrite(buf)
+}
+
+func (p *CountVideoGetFavoriteResult) Size() (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.Size()
+}
+
+func (p *CountVideoGetFavoriteResult) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetSuccess() {
+		return out, fmt.Errorf("No req in CountVideoGetFavoriteResult")
+	}
+	return proto.Marshal(p.Success)
+}
+
+func (p *CountVideoGetFavoriteResult) Unmarshal(in []byte) error {
+	msg := new(interact.CountResponse)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Success = msg
+	return nil
+}
+
+func (p *CountVideoGetFavoriteResult) GetSuccess() *interact.CountResponse {
+	if !p.IsSetSuccess() {
+		return CountVideoGetFavoriteResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+func (p *CountVideoGetFavoriteResult) SetSuccess(x interface{}) {
+	p.Success = x.(*interact.CountResponse)
+}
+
+func (p *CountVideoGetFavoriteResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func countVideoGetCommentHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	switch s := arg.(type) {
+	case *streaming.Args:
+		st := s.Stream
+		req := new(interact.CountVideoGetCommentRequest)
+		if err := st.RecvMsg(req); err != nil {
+			return err
+		}
+		resp, err := handler.(interact.InteractService).CountVideoGetComment(ctx, req)
+		if err != nil {
+			return err
+		}
+		if err := st.SendMsg(resp); err != nil {
+			return err
+		}
+	case *CountVideoGetCommentArgs:
+		success, err := handler.(interact.InteractService).CountVideoGetComment(ctx, s.Req)
+		if err != nil {
+			return err
+		}
+		realResult := result.(*CountVideoGetCommentResult)
+		realResult.Success = success
+	}
+	return nil
+}
+func newCountVideoGetCommentArgs() interface{} {
+	return &CountVideoGetCommentArgs{}
+}
+
+func newCountVideoGetCommentResult() interface{} {
+	return &CountVideoGetCommentResult{}
+}
+
+type CountVideoGetCommentArgs struct {
+	Req *interact.CountVideoGetCommentRequest
+}
+
+func (p *CountVideoGetCommentArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetReq() {
+		p.Req = new(interact.CountVideoGetCommentRequest)
+	}
+	return p.Req.FastRead(buf, _type, number)
+}
+
+func (p *CountVideoGetCommentArgs) FastWrite(buf []byte) (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.FastWrite(buf)
+}
+
+func (p *CountVideoGetCommentArgs) Size() (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.Size()
+}
+
+func (p *CountVideoGetCommentArgs) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetReq() {
+		return out, fmt.Errorf("No req in CountVideoGetCommentArgs")
+	}
+	return proto.Marshal(p.Req)
+}
+
+func (p *CountVideoGetCommentArgs) Unmarshal(in []byte) error {
+	msg := new(interact.CountVideoGetCommentRequest)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Req = msg
+	return nil
+}
+
+var CountVideoGetCommentArgs_Req_DEFAULT *interact.CountVideoGetCommentRequest
+
+func (p *CountVideoGetCommentArgs) GetReq() *interact.CountVideoGetCommentRequest {
+	if !p.IsSetReq() {
+		return CountVideoGetCommentArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+func (p *CountVideoGetCommentArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+type CountVideoGetCommentResult struct {
+	Success *interact.CountResponse
+}
+
+var CountVideoGetCommentResult_Success_DEFAULT *interact.CountResponse
+
+func (p *CountVideoGetCommentResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetSuccess() {
+		p.Success = new(interact.CountResponse)
+	}
+	return p.Success.FastRead(buf, _type, number)
+}
+
+func (p *CountVideoGetCommentResult) FastWrite(buf []byte) (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.FastWrite(buf)
+}
+
+func (p *CountVideoGetCommentResult) Size() (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.Size()
+}
+
+func (p *CountVideoGetCommentResult) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetSuccess() {
+		return out, fmt.Errorf("No req in CountVideoGetCommentResult")
+	}
+	return proto.Marshal(p.Success)
+}
+
+func (p *CountVideoGetCommentResult) Unmarshal(in []byte) error {
+	msg := new(interact.CountResponse)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Success = msg
+	return nil
+}
+
+func (p *CountVideoGetCommentResult) GetSuccess() *interact.CountResponse {
+	if !p.IsSetSuccess() {
+		return CountVideoGetCommentResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+func (p *CountVideoGetCommentResult) SetSuccess(x interface{}) {
+	p.Success = x.(*interact.CountResponse)
+}
+
+func (p *CountVideoGetCommentResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func countUserGetFavoriteHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	switch s := arg.(type) {
+	case *streaming.Args:
+		st := s.Stream
+		req := new(interact.CountUserGetFavoriteRequest)
+		if err := st.RecvMsg(req); err != nil {
+			return err
+		}
+		resp, err := handler.(interact.InteractService).CountUserGetFavorite(ctx, req)
+		if err != nil {
+			return err
+		}
+		if err := st.SendMsg(resp); err != nil {
+			return err
+		}
+	case *CountUserGetFavoriteArgs:
+		success, err := handler.(interact.InteractService).CountUserGetFavorite(ctx, s.Req)
+		if err != nil {
+			return err
+		}
+		realResult := result.(*CountUserGetFavoriteResult)
+		realResult.Success = success
+	}
+	return nil
+}
+func newCountUserGetFavoriteArgs() interface{} {
+	return &CountUserGetFavoriteArgs{}
+}
+
+func newCountUserGetFavoriteResult() interface{} {
+	return &CountUserGetFavoriteResult{}
+}
+
+type CountUserGetFavoriteArgs struct {
+	Req *interact.CountUserGetFavoriteRequest
+}
+
+func (p *CountUserGetFavoriteArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetReq() {
+		p.Req = new(interact.CountUserGetFavoriteRequest)
+	}
+	return p.Req.FastRead(buf, _type, number)
+}
+
+func (p *CountUserGetFavoriteArgs) FastWrite(buf []byte) (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.FastWrite(buf)
+}
+
+func (p *CountUserGetFavoriteArgs) Size() (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.Size()
+}
+
+func (p *CountUserGetFavoriteArgs) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetReq() {
+		return out, fmt.Errorf("No req in CountUserGetFavoriteArgs")
+	}
+	return proto.Marshal(p.Req)
+}
+
+func (p *CountUserGetFavoriteArgs) Unmarshal(in []byte) error {
+	msg := new(interact.CountUserGetFavoriteRequest)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Req = msg
+	return nil
+}
+
+var CountUserGetFavoriteArgs_Req_DEFAULT *interact.CountUserGetFavoriteRequest
+
+func (p *CountUserGetFavoriteArgs) GetReq() *interact.CountUserGetFavoriteRequest {
+	if !p.IsSetReq() {
+		return CountUserGetFavoriteArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+func (p *CountUserGetFavoriteArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+type CountUserGetFavoriteResult struct {
+	Success *interact.CountResponse
+}
+
+var CountUserGetFavoriteResult_Success_DEFAULT *interact.CountResponse
+
+func (p *CountUserGetFavoriteResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetSuccess() {
+		p.Success = new(interact.CountResponse)
+	}
+	return p.Success.FastRead(buf, _type, number)
+}
+
+func (p *CountUserGetFavoriteResult) FastWrite(buf []byte) (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.FastWrite(buf)
+}
+
+func (p *CountUserGetFavoriteResult) Size() (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.Size()
+}
+
+func (p *CountUserGetFavoriteResult) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetSuccess() {
+		return out, fmt.Errorf("No req in CountUserGetFavoriteResult")
+	}
+	return proto.Marshal(p.Success)
+}
+
+func (p *CountUserGetFavoriteResult) Unmarshal(in []byte) error {
+	msg := new(interact.CountResponse)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Success = msg
+	return nil
+}
+
+func (p *CountUserGetFavoriteResult) GetSuccess() *interact.CountResponse {
+	if !p.IsSetSuccess() {
+		return CountUserGetFavoriteResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+func (p *CountUserGetFavoriteResult) SetSuccess(x interface{}) {
+	p.Success = x.(*interact.CountResponse)
+}
+
+func (p *CountUserGetFavoriteResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -666,6 +1104,36 @@ func (p *kClient) CommentList(ctx context.Context, Req *interact.CommentListRequ
 	_args.Req = Req
 	var _result CommentListResult
 	if err = p.c.Call(ctx, "CommentList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CountVideoGetFavorite(ctx context.Context, Req *interact.CountVideoGetFavoriteRequest) (r *interact.CountResponse, err error) {
+	var _args CountVideoGetFavoriteArgs
+	_args.Req = Req
+	var _result CountVideoGetFavoriteResult
+	if err = p.c.Call(ctx, "CountVideoGetFavorite", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CountVideoGetComment(ctx context.Context, Req *interact.CountVideoGetCommentRequest) (r *interact.CountResponse, err error) {
+	var _args CountVideoGetCommentArgs
+	_args.Req = Req
+	var _result CountVideoGetCommentResult
+	if err = p.c.Call(ctx, "CountVideoGetComment", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CountUserGetFavorite(ctx context.Context, Req *interact.CountUserGetFavoriteRequest) (r *interact.CountResponse, err error) {
+	var _args CountUserGetFavoriteArgs
+	_args.Req = Req
+	var _result CountUserGetFavoriteResult
+	if err = p.c.Call(ctx, "CountUserGetFavorite", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

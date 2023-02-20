@@ -82,9 +82,35 @@ message CommentListResponse {
   BaseResp base_resp = 2;
 }
 
+// 请求视频的点赞总数
+message CountVideoGetFavoriteRequest {
+  int64 videoID = 1;
+}
+
+// 请求视频的评论总数
+message CountVideoGetCommentRequest {
+  int64 videoID = 1;
+}
+
+// 请求用户的获赞总数
+message CountUserGetFavoriteRequest {
+  int64 userID = 1;
+}
+
+// 回复统计结果
+message CountResponse {
+  int64 count = 1;
+  BaseResp base_resp = 2;
+}
+
+
+
 service InteractService {
   rpc Favorite(FavoriteRequest) returns (FavoriteResponse) {}
   rpc FavoriteList(FavoriteListRequest) returns(FavoriteListResponse) {}
   rpc CommentAction(CommentActionRequest) returns (CommentActionResponse) {}
   rpc CommentList(CommentListRequest) returns (CommentListResponse) {}
+  rpc CountVideoGetFavorite(CountVideoGetFavoriteRequest) returns (CountResponse) {}
+  rpc CountVideoGetComment(CountVideoGetCommentRequest) returns (CountResponse) {}
+  rpc CountUserGetFavorite(CountUserGetFavoriteRequest) returns (CountResponse) {}
 }
