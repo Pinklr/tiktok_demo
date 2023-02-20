@@ -19,7 +19,7 @@ func UploadVideo(ctx context.Context, authorID int64, playURL, coverURL, title s
 }
 
 func Feed(ctx context.Context, latest_time int64) ([]*video.Video, int64, error) {
-	timeLatest := time.Unix(latest_time, 0)
+	timeLatest := time.Unix(latest_time/1000, 0)
 	log.Println(timeLatest)
 	model, err := db.LatestVideo(ctx, timeLatest)
 	if err != nil {
@@ -27,7 +27,7 @@ func Feed(ctx context.Context, latest_time int64) ([]*video.Video, int64, error)
 	}
 	nextTime := latest_time
 	if len(model) > 0 {
-		nextTime = model[0].CreatedAt.Unix()
+		nextTime = model[len(model)-1].CreatedAt.Unix() * 1000
 	}
 	return pack.Videos(model), nextTime, nil
 }

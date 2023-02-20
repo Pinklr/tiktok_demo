@@ -24,7 +24,7 @@ func CreateVideo(ctx context.Context, videos []*Video) error {
 
 func LatestVideo(ctx context.Context, latest time.Time) ([]*Video, error) {
 	res := make([]*Video, 0)
-	err := DB.WithContext(ctx).Where("created_at > ?", latest).Order("created_at desc").Limit(30).Find(&res).Error
+	err := DB.WithContext(ctx).Where("created_at < ?", latest).Order("created_at desc").Limit(30).Find(&res).Error
 	if err != nil {
 		return nil, err
 	}

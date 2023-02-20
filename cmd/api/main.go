@@ -24,13 +24,13 @@ func main() {
 	r := server.New(
 		server.WithHostPorts("0.0.0.0:8080"),
 		server.WithHandleMethodNotAllowed(true),
+		server.WithMaxRequestBodySize(1024*1024*1024),
 	)
-
 	// jwt身份验证中间件
 	authMiddleware, err := jwt.New(&jwt.HertzJWTMiddleware{
 		Key:        []byte(constants.SecretKey),
-		Timeout:    time.Hour,
-		MaxRefresh: time.Hour,
+		Timeout:    time.Hour * 24 * 30,
+		MaxRefresh: time.Hour * 24 * 30,
 		Authenticator: func(ctx context.Context, c *app.RequestContext) (interface{}, error) {
 			log.Println(c.QueryArgs())
 			username := c.Query("username")
