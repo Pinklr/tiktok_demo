@@ -5,6 +5,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"github.com/Pinklr/tiktok_demo/cmd/user/dal/db"
+	"github.com/Pinklr/tiktok_demo/cmd/user/pack"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/user"
 	"github.com/Pinklr/tiktok_demo/pkg/errno"
 	"io"
@@ -61,7 +62,9 @@ func GetUserInfo(ctx context.Context, userID int64) (*user.User, error) {
 	}
 	// TODO
 	var a, b int64 = 100, 100
-	var avatar string = "https://img1.baidu.com/it/u=1946634850,2532424654&fm=253&fmt=auto&app=138&f=JPEG?w=581&h=500"
+	var avatar string = "http://192.168.1.104:9002/static/image/avatar.jpeg"
+	var background string = "http://192.168.1.104:9002/static/image/background.jpeg"
+	var signature string = "这个用户很懒，什么都没有留下"
 	return &user.User{
 		Id:              int64(model.Model.ID),
 		Name:            model.Username,
@@ -69,10 +72,18 @@ func GetUserInfo(ctx context.Context, userID int64) (*user.User, error) {
 		FollowerCount:   &b,
 		IsFollow:        false,
 		Avatar:          &avatar,
-		BackgroundImage: nil,
-		Signature:       nil,
+		BackgroundImage: &background,
+		Signature:       &signature,
 		TotalFavorited:  nil,
 		WorkCount:       nil,
 		FavoriteCount:   nil,
 	}, nil
+}
+
+func MGetUser(ctx context.Context, userIDs []int64) ([]*user.User, error) {
+	model, err := db.MGetUsers(ctx, userIDs)
+	if err != nil {
+		return nil, err
+	}
+	return pack.Users(model), nil
 }

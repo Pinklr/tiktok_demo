@@ -2,6 +2,7 @@ package pack
 
 import (
 	"errors"
+	"github.com/Pinklr/tiktok_demo/cmd/user/dal/db"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/user"
 	"github.com/Pinklr/tiktok_demo/pkg/errno"
 	"time"
@@ -25,4 +26,33 @@ func baseResp(err errno.ErrNo) *user.BaseResp {
 		StatusMessage: err.ErrMsg,
 		ServiceTime:   time.Now().Unix(),
 	}
+}
+
+func User(model *db.User) *user.User {
+	// TODO
+	var a, b int64 = 100, 100
+	var avatar string = "http://192.168.1.104:9002/static/image/avatar.jpeg"
+	var background string = "http://192.168.1.104:9002/static/image/background.jpeg"
+	var signature string = "这个用户很懒，什么都没有留下"
+	return &user.User{
+		Id:              int64(model.Model.ID),
+		Name:            model.Username,
+		FollowCount:     &a,
+		FollowerCount:   &b,
+		IsFollow:        false,
+		Avatar:          &avatar,
+		BackgroundImage: &background,
+		Signature:       &signature,
+		TotalFavorited:  nil,
+		WorkCount:       nil,
+		FavoriteCount:   nil,
+	}
+}
+
+func Users(model []*db.User) []*user.User {
+	res := make([]*user.User, 0, len(model))
+	for _, item := range model {
+		res = append(res, User(item))
+	}
+	return res
 }

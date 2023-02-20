@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/Pinklr/tiktok_demo/cmd/video/dal"
+	"github.com/Pinklr/tiktok_demo/cmd/video/rpc"
 	video "github.com/Pinklr/tiktok_demo/kitex_gen/video/videoservice"
 	"github.com/cloudwego/kitex/server"
 	"log"
@@ -9,6 +10,7 @@ import (
 )
 
 func Init() {
+	rpc.Init()
 	dal.Init()
 }
 

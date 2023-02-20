@@ -83,7 +83,7 @@ message CommentListResponse {
 }
 
 service InteractService {
-  rpc Favorite(FavoriteListRequest) returns (FavoriteListResponse) {}
+  rpc Favorite(FavoriteRequest) returns (FavoriteResponse) {}
   rpc FavoriteList(FavoriteListRequest) returns(FavoriteListResponse) {}
   rpc CommentAction(CommentActionRequest) returns (CommentActionResponse) {}
   rpc CommentList(CommentListRequest) returns (CommentListResponse) {}
