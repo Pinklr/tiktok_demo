@@ -22,10 +22,11 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "VideoService"
 	handlerType := (*video.VideoService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"Feed":        kitex.NewMethodInfo(feedHandler, newFeedArgs, newFeedResult, false),
-		"VideoAction": kitex.NewMethodInfo(videoActionHandler, newVideoActionArgs, newVideoActionResult, false),
-		"List":        kitex.NewMethodInfo(listHandler, newListArgs, newListResult, false),
-		"MGetVideo":   kitex.NewMethodInfo(mGetVideoHandler, newMGetVideoArgs, newMGetVideoResult, false),
+		"Feed":           kitex.NewMethodInfo(feedHandler, newFeedArgs, newFeedResult, false),
+		"VideoAction":    kitex.NewMethodInfo(videoActionHandler, newVideoActionArgs, newVideoActionResult, false),
+		"List":           kitex.NewMethodInfo(listHandler, newListArgs, newListResult, false),
+		"MGetVideo":      kitex.NewMethodInfo(mGetVideoHandler, newMGetVideoArgs, newMGetVideoResult, false),
+		"CountUserVideo": kitex.NewMethodInfo(countUserVideoHandler, newCountUserVideoArgs, newCountUserVideoResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "douyin.video",
@@ -621,6 +622,151 @@ func (p *MGetVideoResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
+func countUserVideoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	switch s := arg.(type) {
+	case *streaming.Args:
+		st := s.Stream
+		req := new(video.CountUserVideoRequest)
+		if err := st.RecvMsg(req); err != nil {
+			return err
+		}
+		resp, err := handler.(video.VideoService).CountUserVideo(ctx, req)
+		if err != nil {
+			return err
+		}
+		if err := st.SendMsg(resp); err != nil {
+			return err
+		}
+	case *CountUserVideoArgs:
+		success, err := handler.(video.VideoService).CountUserVideo(ctx, s.Req)
+		if err != nil {
+			return err
+		}
+		realResult := result.(*CountUserVideoResult)
+		realResult.Success = success
+	}
+	return nil
+}
+func newCountUserVideoArgs() interface{} {
+	return &CountUserVideoArgs{}
+}
+
+func newCountUserVideoResult() interface{} {
+	return &CountUserVideoResult{}
+}
+
+type CountUserVideoArgs struct {
+	Req *video.CountUserVideoRequest
+}
+
+func (p *CountUserVideoArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetReq() {
+		p.Req = new(video.CountUserVideoRequest)
+	}
+	return p.Req.FastRead(buf, _type, number)
+}
+
+func (p *CountUserVideoArgs) FastWrite(buf []byte) (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.FastWrite(buf)
+}
+
+func (p *CountUserVideoArgs) Size() (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.Size()
+}
+
+func (p *CountUserVideoArgs) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetReq() {
+		return out, fmt.Errorf("No req in CountUserVideoArgs")
+	}
+	return proto.Marshal(p.Req)
+}
+
+func (p *CountUserVideoArgs) Unmarshal(in []byte) error {
+	msg := new(video.CountUserVideoRequest)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Req = msg
+	return nil
+}
+
+var CountUserVideoArgs_Req_DEFAULT *video.CountUserVideoRequest
+
+func (p *CountUserVideoArgs) GetReq() *video.CountUserVideoRequest {
+	if !p.IsSetReq() {
+		return CountUserVideoArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+func (p *CountUserVideoArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+type CountUserVideoResult struct {
+	Success *video.CountUserVideoResponse
+}
+
+var CountUserVideoResult_Success_DEFAULT *video.CountUserVideoResponse
+
+func (p *CountUserVideoResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetSuccess() {
+		p.Success = new(video.CountUserVideoResponse)
+	}
+	return p.Success.FastRead(buf, _type, number)
+}
+
+func (p *CountUserVideoResult) FastWrite(buf []byte) (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.FastWrite(buf)
+}
+
+func (p *CountUserVideoResult) Size() (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.Size()
+}
+
+func (p *CountUserVideoResult) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetSuccess() {
+		return out, fmt.Errorf("No req in CountUserVideoResult")
+	}
+	return proto.Marshal(p.Success)
+}
+
+func (p *CountUserVideoResult) Unmarshal(in []byte) error {
+	msg := new(video.CountUserVideoResponse)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Success = msg
+	return nil
+}
+
+func (p *CountUserVideoResult) GetSuccess() *video.CountUserVideoResponse {
+	if !p.IsSetSuccess() {
+		return CountUserVideoResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+func (p *CountUserVideoResult) SetSuccess(x interface{}) {
+	p.Success = x.(*video.CountUserVideoResponse)
+}
+
+func (p *CountUserVideoResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -666,6 +812,16 @@ func (p *kClient) MGetVideo(ctx context.Context, Req *video.MGetVideoRequest) (r
 	_args.Req = Req
 	var _result MGetVideoResult
 	if err = p.c.Call(ctx, "MGetVideo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CountUserVideo(ctx context.Context, Req *video.CountUserVideoRequest) (r *video.CountUserVideoResponse, err error) {
+	var _args CountUserVideoArgs
+	_args.Req = Req
+	var _result CountUserVideoResult
+	if err = p.c.Call(ctx, "CountUserVideo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

@@ -62,6 +62,15 @@ message ListResponse {
   BaseResp base_resp = 2;
 }
 
+// CountUserVideo统计用户发布的作品数
+message CountUserVideoRequest {
+  int64 userID = 1;
+}
+message CountUserVideoResponse {
+  int64 count = 1;
+  BaseResp base_resp = 2;
+}
+
 //MGetVideo: 输入一个video id列表，查询并返回Video列表
 message MGetVideoRequest {
   repeated int64 videoIDs = 1;
@@ -76,4 +85,5 @@ service VideoService {
   rpc VideoAction(VideoActionRequest) returns (VideoActionResponse) {}
   rpc List(ListRequest) returns (ListResponse) {}
   rpc MGetVideo(MGetVideoRequest) returns (MGetVideoResponse) {}
+  rpc CountUserVideo(CountUserVideoRequest) returns (CountUserVideoResponse) {}
 }

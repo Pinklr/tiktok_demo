@@ -39,3 +39,9 @@ func GetVideoByUserID(ctx context.Context, userID int64) ([]*Video, error) {
 	}
 	return res, nil
 }
+
+func CountUserVideo(ctx context.Context, userID int64) (int64, error) {
+	var count int64
+	err := DB.WithContext(ctx).Model(&Video{}).Where("author_id = ?", userID).Count(&count).Error
+	return count, err
+}

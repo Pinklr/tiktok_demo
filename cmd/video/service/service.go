@@ -117,3 +117,11 @@ func GetVideoByUserID(ctx context.Context, userID int64) ([]*video.Video, error)
 
 	return videos, nil
 }
+
+func CountUserVideo(ctx context.Context, userID int64) (int64, error) {
+	count, err := db.CountUserVideo(ctx, userID)
+	if err != nil {
+		return 0, err
+	}
+	return count, nil
+}

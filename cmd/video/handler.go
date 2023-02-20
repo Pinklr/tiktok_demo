@@ -77,3 +77,20 @@ func (s *VideoServiceImpl) MGetVideo(ctx context.Context, req *video.MGetVideoRe
 	// TODO: Your code here...
 	return
 }
+
+// CountUserVideo implements the VideoServiceImpl interface.
+func (s *VideoServiceImpl) CountUserVideo(ctx context.Context, req *video.CountUserVideoRequest) (resp *video.CountUserVideoResponse, err error) {
+	resp = new(video.CountUserVideoResponse)
+	if req.UserID <= 0 {
+		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
+		return
+	}
+	count, err := service.CountUserVideo(ctx, req.UserID)
+	if err != nil {
+		resp.BaseResp = pack.BuildBaseResp(err)
+		return
+	}
+	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp.Count = count
+	return
+}

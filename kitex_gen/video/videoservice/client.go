@@ -15,6 +15,7 @@ type Client interface {
 	VideoAction(ctx context.Context, Req *video.VideoActionRequest, callOptions ...callopt.Option) (r *video.VideoActionResponse, err error)
 	List(ctx context.Context, Req *video.ListRequest, callOptions ...callopt.Option) (r *video.ListResponse, err error)
 	MGetVideo(ctx context.Context, Req *video.MGetVideoRequest, callOptions ...callopt.Option) (r *video.MGetVideoResponse, err error)
+	CountUserVideo(ctx context.Context, Req *video.CountUserVideoRequest, callOptions ...callopt.Option) (r *video.CountUserVideoResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -64,4 +65,9 @@ func (p *kVideoServiceClient) List(ctx context.Context, Req *video.ListRequest, 
 func (p *kVideoServiceClient) MGetVideo(ctx context.Context, Req *video.MGetVideoRequest, callOptions ...callopt.Option) (r *video.MGetVideoResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.MGetVideo(ctx, Req)
+}
+
+func (p *kVideoServiceClient) CountUserVideo(ctx context.Context, Req *video.CountUserVideoRequest, callOptions ...callopt.Option) (r *video.CountUserVideoResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CountUserVideo(ctx, Req)
 }
