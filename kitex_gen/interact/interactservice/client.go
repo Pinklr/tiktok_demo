@@ -15,6 +15,9 @@ type Client interface {
 	FavoriteList(ctx context.Context, Req *interact.FavoriteListRequest, callOptions ...callopt.Option) (r *interact.FavoriteListResponse, err error)
 	CommentAction(ctx context.Context, Req *interact.CommentActionRequest, callOptions ...callopt.Option) (r *interact.CommentActionResponse, err error)
 	CommentList(ctx context.Context, Req *interact.CommentListRequest, callOptions ...callopt.Option) (r *interact.CommentListResponse, err error)
+	CountVideoGetFavorite(ctx context.Context, Req *interact.CountVideoGetFavoriteRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error)
+	CountVideoGetComment(ctx context.Context, Req *interact.CountVideoGetCommentRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error)
+	CountUserGetFavorite(ctx context.Context, Req *interact.CountUserGetFavoriteRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -64,4 +67,19 @@ func (p *kInteractServiceClient) CommentAction(ctx context.Context, Req *interac
 func (p *kInteractServiceClient) CommentList(ctx context.Context, Req *interact.CommentListRequest, callOptions ...callopt.Option) (r *interact.CommentListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.CommentList(ctx, Req)
+}
+
+func (p *kInteractServiceClient) CountVideoGetFavorite(ctx context.Context, Req *interact.CountVideoGetFavoriteRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CountVideoGetFavorite(ctx, Req)
+}
+
+func (p *kInteractServiceClient) CountVideoGetComment(ctx context.Context, Req *interact.CountVideoGetCommentRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CountVideoGetComment(ctx, Req)
+}
+
+func (p *kInteractServiceClient) CountUserGetFavorite(ctx context.Context, Req *interact.CountUserGetFavoriteRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CountUserGetFavorite(ctx, Req)
 }
