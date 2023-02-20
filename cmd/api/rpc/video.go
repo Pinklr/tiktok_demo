@@ -2,6 +2,7 @@ package rpc
 
 import (
 	"context"
+
 	"github.com/Pinklr/tiktok_demo/kitex_gen/video"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/video/videoservice"
 	"github.com/Pinklr/tiktok_demo/pkg/constants"
@@ -23,7 +24,7 @@ func InitVideoRPC() {
 	videoClient = c
 }
 
-func UploadVideo(ctx context.Context, req *video.VideoActionRequest) error {
+func VideoAction(ctx context.Context, req *video.VideoActionRequest) error {
 	resp, err := videoClient.VideoAction(ctx, req)
 	if err != nil {
 		return err
@@ -34,13 +35,24 @@ func UploadVideo(ctx context.Context, req *video.VideoActionRequest) error {
 	return nil
 }
 
-func Feed(ctx context.Context, req *video.FeedRequest) ([]*video.Video, int64, error) {
-	resp, err := videoClient.Feed(ctx, req)
+func List(ctx context.Context, req *video.ListRequest) ([]*video.Video, error) {
+	resp, err := videoClient.List(ctx, req)
 	if err != nil {
-		return nil, 0, err
+		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return nil, 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
-	return resp.Videos, resp.NextTime, nil
+	return resp.Videos, nil
+}
+
+func Feed(ctx context.Context, req *video.FeedRequest) (int64, []*video.Video, error) {
+	resp, err := videoClient.Feed(ctx, req)
+	if err != nil {
+		return 0, nil, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return 0, nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+	}
+	return resp.NextTime, resp.Videos, nil
 }
