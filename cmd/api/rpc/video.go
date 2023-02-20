@@ -44,3 +44,14 @@ func Feed(ctx context.Context, req *video.FeedRequest) ([]*video.Video, int64, e
 	}
 	return resp.Videos, resp.NextTime, nil
 }
+
+func PublishList(ctx context.Context, req *video.ListRequest) ([]*video.Video, error) {
+	resp, err := videoClient.List(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+	}
+	return resp.Videos, nil
+}

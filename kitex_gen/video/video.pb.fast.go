@@ -500,6 +500,71 @@ func (x *ListResponse) fastReadField2(buf []byte, _type int8) (offset int, err e
 	return offset, nil
 }
 
+func (x *CountUserVideoRequest) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
+	switch number {
+	case 1:
+		offset, err = x.fastReadField1(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
+	default:
+		offset, err = fastpb.Skip(buf, _type, number)
+		if err != nil {
+			goto SkipFieldError
+		}
+	}
+	return offset, nil
+SkipFieldError:
+	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
+ReadFieldError:
+	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_CountUserVideoRequest[number], err)
+}
+
+func (x *CountUserVideoRequest) fastReadField1(buf []byte, _type int8) (offset int, err error) {
+	x.UserID, offset, err = fastpb.ReadInt64(buf, _type)
+	return offset, err
+}
+
+func (x *CountUserVideoResponse) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
+	switch number {
+	case 1:
+		offset, err = x.fastReadField1(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
+	case 2:
+		offset, err = x.fastReadField2(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
+	default:
+		offset, err = fastpb.Skip(buf, _type, number)
+		if err != nil {
+			goto SkipFieldError
+		}
+	}
+	return offset, nil
+SkipFieldError:
+	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
+ReadFieldError:
+	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_CountUserVideoResponse[number], err)
+}
+
+func (x *CountUserVideoResponse) fastReadField1(buf []byte, _type int8) (offset int, err error) {
+	x.Count, offset, err = fastpb.ReadInt64(buf, _type)
+	return offset, err
+}
+
+func (x *CountUserVideoResponse) fastReadField2(buf []byte, _type int8) (offset int, err error) {
+	var v BaseResp
+	offset, err = fastpb.ReadMessage(buf, _type, &v)
+	if err != nil {
+		return offset, err
+	}
+	x.BaseResp = &v
+	return offset, nil
+}
+
 func (x *MGetVideoRequest) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
 	switch number {
 	case 1:
@@ -925,6 +990,47 @@ func (x *ListResponse) fastWriteField2(buf []byte) (offset int) {
 	return offset
 }
 
+func (x *CountUserVideoRequest) FastWrite(buf []byte) (offset int) {
+	if x == nil {
+		return offset
+	}
+	offset += x.fastWriteField1(buf[offset:])
+	return offset
+}
+
+func (x *CountUserVideoRequest) fastWriteField1(buf []byte) (offset int) {
+	if x.UserID == 0 {
+		return offset
+	}
+	offset += fastpb.WriteInt64(buf[offset:], 1, x.UserID)
+	return offset
+}
+
+func (x *CountUserVideoResponse) FastWrite(buf []byte) (offset int) {
+	if x == nil {
+		return offset
+	}
+	offset += x.fastWriteField1(buf[offset:])
+	offset += x.fastWriteField2(buf[offset:])
+	return offset
+}
+
+func (x *CountUserVideoResponse) fastWriteField1(buf []byte) (offset int) {
+	if x.Count == 0 {
+		return offset
+	}
+	offset += fastpb.WriteInt64(buf[offset:], 1, x.Count)
+	return offset
+}
+
+func (x *CountUserVideoResponse) fastWriteField2(buf []byte) (offset int) {
+	if x.BaseResp == nil {
+		return offset
+	}
+	offset += fastpb.WriteMessage(buf[offset:], 2, x.BaseResp)
+	return offset
+}
+
 func (x *MGetVideoRequest) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
@@ -1319,6 +1425,47 @@ func (x *ListResponse) sizeField2() (n int) {
 	return n
 }
 
+func (x *CountUserVideoRequest) Size() (n int) {
+	if x == nil {
+		return n
+	}
+	n += x.sizeField1()
+	return n
+}
+
+func (x *CountUserVideoRequest) sizeField1() (n int) {
+	if x.UserID == 0 {
+		return n
+	}
+	n += fastpb.SizeInt64(1, x.UserID)
+	return n
+}
+
+func (x *CountUserVideoResponse) Size() (n int) {
+	if x == nil {
+		return n
+	}
+	n += x.sizeField1()
+	n += x.sizeField2()
+	return n
+}
+
+func (x *CountUserVideoResponse) sizeField1() (n int) {
+	if x.Count == 0 {
+		return n
+	}
+	n += fastpb.SizeInt64(1, x.Count)
+	return n
+}
+
+func (x *CountUserVideoResponse) sizeField2() (n int) {
+	if x.BaseResp == nil {
+		return n
+	}
+	n += fastpb.SizeMessage(2, x.BaseResp)
+	return n
+}
+
 func (x *MGetVideoRequest) Size() (n int) {
 	if x == nil {
 		return n
@@ -1422,6 +1569,15 @@ var fieldIDToName_ListRequest = map[int32]string{
 
 var fieldIDToName_ListResponse = map[int32]string{
 	1: "Videos",
+	2: "BaseResp",
+}
+
+var fieldIDToName_CountUserVideoRequest = map[int32]string{
+	1: "UserID",
+}
+
+var fieldIDToName_CountUserVideoResponse = map[int32]string{
+	1: "Count",
 	2: "BaseResp",
 }
 
