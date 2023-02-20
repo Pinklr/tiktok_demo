@@ -4,11 +4,12 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"io"
+
 	"github.com/Pinklr/tiktok_demo/cmd/user/dal/db"
 	"github.com/Pinklr/tiktok_demo/cmd/user/pack"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/user"
 	"github.com/Pinklr/tiktok_demo/pkg/errno"
-	"io"
 )
 
 func CreateUser(ctx context.Context, username, password string) error {

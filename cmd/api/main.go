@@ -2,6 +2,9 @@ package main
 
 import (
 	"context"
+	"log"
+	"time"
+
 	"github.com/Pinklr/tiktok_demo/cmd/api/handler"
 	"github.com/Pinklr/tiktok_demo/cmd/api/rpc"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/user"
@@ -11,8 +14,6 @@ import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/hertz-contrib/jwt"
-	"log"
-	"time"
 )
 
 func Init() {
@@ -94,6 +95,13 @@ func main() {
 	publish.POST("action/", handler.UploadVideoHandler)
 
 	v1.GET("feed", handler.FeedHandler)
+
+	favorite := v1.Group("favorite/")
+	favorite.POST("action/", handler.FavoriteHandler)
+	favorite.GET("list/", handler.FavoriteListHandler)
+	comment := v1.Group("comment/")
+	comment.POST("action/", handler.CommentActionHandler)
+	comment.GET("list/", handler.CommentListHandler)
 
 	r.Spin()
 }
