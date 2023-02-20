@@ -15,7 +15,7 @@ var interactClient interactservice.Client
 func initInteractRpc() {
 	c, err := interactservice.NewClient(
 		constants.InteractServiceName,
-		client.WithHostPorts("0.0.0.0:8890"),
+		client.WithHostPorts("0.0.0.0:8889"),
 	)
 	if err != nil {
 		panic(err)
@@ -65,37 +65,4 @@ func GetCommentList(ctx context.Context, req *interact.CommentListRequest) ([]*i
 		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
 	return resp.Comments, nil
-}
-
-func GetVideoFavoriteCount(ctx context.Context, req *interact.CountVideoGetFavoriteRequest) (int64, error) {
-	resp, err := interactClient.CountVideoGetFavorite(ctx, req)
-	if err != nil {
-		return 0, err
-	}
-	if resp.BaseResp.StatusCode != 0 {
-		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
-	}
-	return resp.Count, nil
-}
-
-func GetVideoCommentCount(ctx context.Context, req *interact.CountVideoGetCommentRequest) (int64, error) {
-	resp, err := interactClient.CountVideoGetComment(ctx, req)
-	if err != nil {
-		return 0, err
-	}
-	if resp.BaseResp.StatusCode != 0 {
-		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
-	}
-	return resp.Count, nil
-}
-
-func GetUserFavoriteCount(ctx context.Context, req *interact.CountUserGetFavoriteRequest) (int64, error) {
-	resp, err := interactClient.CountUserGetFavorite(ctx, req)
-	if err != nil {
-		return 0, err
-	}
-	if resp.BaseResp.StatusCode != 0 {
-		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
-	}
-	return resp.Count, nil
 }

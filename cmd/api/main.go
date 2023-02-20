@@ -93,7 +93,6 @@ func main() {
 	publish := v1.Group("publish/")
 	publish.Use(authMiddleware.MiddlewareFunc())
 	publish.POST("action/", handler.UploadVideoHandler)
-	publish.GET("list/", handler.PublishListHandler)
 
 	v1.GET("feed", handler.FeedHandler)
 

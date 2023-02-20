@@ -4,6 +4,8 @@ import (
 	"context"
 	"strconv"
 
+	"github.com/Pinklr/tiktok_demo/cmd/api/rpc"
+	"github.com/Pinklr/tiktok_demo/kitex_gen/interact"
 	"github.com/Pinklr/tiktok_demo/pkg/constants"
 	"github.com/Pinklr/tiktok_demo/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -21,16 +23,16 @@ func CommentListHandler(ctx context.Context, c *app.RequestContext) {
 
 	}
 
-	/*	Comment_list, err := rpc.CommentList(ctx, &interact.CommentListRequest{
+	Comment_list, err := rpc.GetCommentList(ctx, &interact.CommentListRequest{
 
 			//UserID:      token,
 			VideoID:     video_id,
 
 		})
 		if err != nil {
-			SendResponse(c, err, nil, "video_list")
+			SendResponse(c, err, Comment_list, "video_list")
 			return
-		}*/
+		}
 
 	SendResponse(c, errno.Success, nil, "data")
 }
