@@ -1148,14 +1148,14 @@ func (p *CountUserFavoriteArgs) IsSetReq() bool {
 }
 
 type CountUserFavoriteResult struct {
-	Success *interact.CountUserFavoriteRequest
+	Success *interact.CountResponse
 }
 
-var CountUserFavoriteResult_Success_DEFAULT *interact.CountUserFavoriteRequest
+var CountUserFavoriteResult_Success_DEFAULT *interact.CountResponse
 
 func (p *CountUserFavoriteResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetSuccess() {
-		p.Success = new(interact.CountUserFavoriteRequest)
+		p.Success = new(interact.CountResponse)
 	}
 	return p.Success.FastRead(buf, _type, number)
 }
@@ -1182,7 +1182,7 @@ func (p *CountUserFavoriteResult) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *CountUserFavoriteResult) Unmarshal(in []byte) error {
-	msg := new(interact.CountUserFavoriteRequest)
+	msg := new(interact.CountResponse)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -1190,7 +1190,7 @@ func (p *CountUserFavoriteResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *CountUserFavoriteResult) GetSuccess() *interact.CountUserFavoriteRequest {
+func (p *CountUserFavoriteResult) GetSuccess() *interact.CountResponse {
 	if !p.IsSetSuccess() {
 		return CountUserFavoriteResult_Success_DEFAULT
 	}
@@ -1198,7 +1198,7 @@ func (p *CountUserFavoriteResult) GetSuccess() *interact.CountUserFavoriteReques
 }
 
 func (p *CountUserFavoriteResult) SetSuccess(x interface{}) {
-	p.Success = x.(*interact.CountUserFavoriteRequest)
+	p.Success = x.(*interact.CountResponse)
 }
 
 func (p *CountUserFavoriteResult) IsSetSuccess() bool {
@@ -1285,7 +1285,7 @@ func (p *kClient) CountUserGetFavorite(ctx context.Context, Req *interact.CountU
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) CountUserFavorite(ctx context.Context, Req *interact.CountUserFavoriteRequest) (r *interact.CountUserFavoriteRequest, err error) {
+func (p *kClient) CountUserFavorite(ctx context.Context, Req *interact.CountUserFavoriteRequest) (r *interact.CountResponse, err error) {
 	var _args CountUserFavoriteArgs
 	_args.Req = Req
 	var _result CountUserFavoriteResult

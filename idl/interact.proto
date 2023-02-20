@@ -118,5 +118,5 @@ service InteractService {
   rpc CountVideoGetFavorite(CountVideoGetFavoriteRequest) returns (CountResponse) {}
   rpc CountVideoGetComment(CountVideoGetCommentRequest) returns (CountResponse) {}
   rpc CountUserGetFavorite(CountUserGetFavoriteRequest) returns (CountResponse) {}
-  rpc CountUserFavorite(CountUserFavoriteRequest) returns (CountUserFavoriteRequest) {}
+  rpc CountUserFavorite(CountUserFavoriteRequest) returns (CountResponse) {}
 }
