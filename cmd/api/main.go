@@ -25,13 +25,13 @@ func main() {
 	r := server.New(
 		server.WithHostPorts("0.0.0.0:8080"),
 		server.WithHandleMethodNotAllowed(true),
+		server.WithMaxRequestBodySize(1024*1024*1024),
 	)
-
 	// jwt身份验证中间件
 	authMiddleware, err := jwt.New(&jwt.HertzJWTMiddleware{
 		Key:        []byte(constants.SecretKey),
-		Timeout:    time.Hour,
-		MaxRefresh: time.Hour,
+		Timeout:    time.Hour * 24 * 30,
+		MaxRefresh: time.Hour * 24 * 30,
 		Authenticator: func(ctx context.Context, c *app.RequestContext) (interface{}, error) {
 			log.Println(c.QueryArgs())
 			username := c.Query("username")
@@ -89,11 +89,19 @@ func main() {
 	user.Use(authMiddleware.MiddlewareFunc())
 	user.GET("/", handler.GetUserHandler)
 	user.POST("refresh/", authMiddleware.RefreshHandler)
+
+	publish := v1.Group("publish/")
+	publish.Use(authMiddleware.MiddlewareFunc())
+	publish.POST("action/", handler.UploadVideoHandler)
+
+	v1.GET("feed", handler.FeedHandler)
+
 	favorite := v1.Group("favorite/")
 	favorite.POST("action/", handler.FavoriteHandler)
 	favorite.GET("list/", handler.FavoriteListHandler)
 	comment := v1.Group("comment/")
 	comment.POST("action/", handler.CommentActionHandler)
 	comment.GET("list/", handler.CommentListHandler)
+
 	r.Spin()
 }

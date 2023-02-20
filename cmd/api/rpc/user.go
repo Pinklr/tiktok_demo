@@ -10,7 +10,7 @@ import (
 	"github.com/cloudwego/kitex/client"
 )
 
-var cli userservice.Client
+var userClient userservice.Client
 
 func initUserRPC() {
 	c, err := userservice.NewClient(
@@ -20,11 +20,11 @@ func initUserRPC() {
 	if err != nil {
 		panic(err)
 	}
-	cli = c
+	userClient = c
 }
 
 func CreateUser(ctx context.Context, req *user.CreateUserRequest) error {
-	resp, err := cli.CreateUser(ctx, req)
+	resp, err := userClient.CreateUser(ctx, req)
 	if err != nil {
 		return err
 	}
@@ -35,7 +35,7 @@ func CreateUser(ctx context.Context, req *user.CreateUserRequest) error {
 }
 
 func CheckUser(ctx context.Context, req *user.CheckUserRequest) (int64, error) {
-	resp, err := cli.CheckUser(ctx, req)
+	resp, err := userClient.CheckUser(ctx, req)
 	if err != nil {
 		return 0, err
 	}
@@ -46,7 +46,7 @@ func CheckUser(ctx context.Context, req *user.CheckUserRequest) (int64, error) {
 }
 
 func GetUserInfo(ctx context.Context, req *user.GetUserInfoRequest) (*user.User, error) {
-	resp, err := cli.GetUserInfo(ctx, req)
+	resp, err := userClient.GetUserInfo(ctx, req)
 	if err != nil {
 		return nil, err
 	}

@@ -28,7 +28,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"MGetVideo":   kitex.NewMethodInfo(mGetVideoHandler, newMGetVideoArgs, newMGetVideoResult, false),
 	}
 	extra := map[string]interface{}{
-		"PackageName": "douyin.core",
+		"PackageName": "douyin.video",
 	}
 	svcInfo := &kitex.ServiceInfo{
 		ServiceName:     serviceName,

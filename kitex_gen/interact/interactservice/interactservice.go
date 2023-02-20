@@ -28,7 +28,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"CommentList":   kitex.NewMethodInfo(commentListHandler, newCommentListArgs, newCommentListResult, false),
 	}
 	extra := map[string]interface{}{
-		"PackageName": "douyin.core",
+		"PackageName": "douyin.interact",
 	}
 	svcInfo := &kitex.ServiceInfo{
 		ServiceName:     serviceName,
@@ -45,7 +45,7 @@ func favoriteHandler(ctx context.Context, handler interface{}, arg, result inter
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
-		req := new(interact.FavoriteListRequest)
+		req := new(interact.FavoriteRequest)
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
@@ -75,12 +75,12 @@ func newFavoriteResult() interface{} {
 }
 
 type FavoriteArgs struct {
-	Req *interact.FavoriteListRequest
+	Req *interact.FavoriteRequest
 }
 
 func (p *FavoriteArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetReq() {
-		p.Req = new(interact.FavoriteListRequest)
+		p.Req = new(interact.FavoriteRequest)
 	}
 	return p.Req.FastRead(buf, _type, number)
 }
@@ -107,7 +107,7 @@ func (p *FavoriteArgs) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *FavoriteArgs) Unmarshal(in []byte) error {
-	msg := new(interact.FavoriteListRequest)
+	msg := new(interact.FavoriteRequest)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -115,9 +115,9 @@ func (p *FavoriteArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var FavoriteArgs_Req_DEFAULT *interact.FavoriteListRequest
+var FavoriteArgs_Req_DEFAULT *interact.FavoriteRequest
 
-func (p *FavoriteArgs) GetReq() *interact.FavoriteListRequest {
+func (p *FavoriteArgs) GetReq() *interact.FavoriteRequest {
 	if !p.IsSetReq() {
 		return FavoriteArgs_Req_DEFAULT
 	}
@@ -129,14 +129,14 @@ func (p *FavoriteArgs) IsSetReq() bool {
 }
 
 type FavoriteResult struct {
-	Success *interact.FavoriteListResponse
+	Success *interact.FavoriteResponse
 }
 
-var FavoriteResult_Success_DEFAULT *interact.FavoriteListResponse
+var FavoriteResult_Success_DEFAULT *interact.FavoriteResponse
 
 func (p *FavoriteResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetSuccess() {
-		p.Success = new(interact.FavoriteListResponse)
+		p.Success = new(interact.FavoriteResponse)
 	}
 	return p.Success.FastRead(buf, _type, number)
 }
@@ -163,7 +163,7 @@ func (p *FavoriteResult) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *FavoriteResult) Unmarshal(in []byte) error {
-	msg := new(interact.FavoriteListResponse)
+	msg := new(interact.FavoriteResponse)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -171,7 +171,7 @@ func (p *FavoriteResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *FavoriteResult) GetSuccess() *interact.FavoriteListResponse {
+func (p *FavoriteResult) GetSuccess() *interact.FavoriteResponse {
 	if !p.IsSetSuccess() {
 		return FavoriteResult_Success_DEFAULT
 	}
@@ -179,7 +179,7 @@ func (p *FavoriteResult) GetSuccess() *interact.FavoriteListResponse {
 }
 
 func (p *FavoriteResult) SetSuccess(x interface{}) {
-	p.Success = x.(*interact.FavoriteListResponse)
+	p.Success = x.(*interact.FavoriteResponse)
 }
 
 func (p *FavoriteResult) IsSetSuccess() bool {
@@ -631,7 +631,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) Favorite(ctx context.Context, Req *interact.FavoriteListRequest) (r *interact.FavoriteListResponse, err error) {
+func (p *kClient) Favorite(ctx context.Context, Req *interact.FavoriteRequest) (r *interact.FavoriteResponse, err error) {
 	var _args FavoriteArgs
 	_args.Req = Req
 	var _result FavoriteResult
