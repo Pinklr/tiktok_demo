@@ -752,6 +752,31 @@ func (x *CountUserGetFavoriteRequest) fastReadField1(buf []byte, _type int8) (of
 	return offset, err
 }
 
+func (x *CountUserFavoriteRequest) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
+	switch number {
+	case 1:
+		offset, err = x.fastReadField1(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
+	default:
+		offset, err = fastpb.Skip(buf, _type, number)
+		if err != nil {
+			goto SkipFieldError
+		}
+	}
+	return offset, nil
+SkipFieldError:
+	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
+ReadFieldError:
+	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_CountUserFavoriteRequest[number], err)
+}
+
+func (x *CountUserFavoriteRequest) fastReadField1(buf []byte, _type int8) (offset int, err error) {
+	x.UserID, offset, err = fastpb.ReadInt64(buf, _type)
+	return offset, err
+}
+
 func (x *CountResponse) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
 	switch number {
 	case 1:
@@ -1315,6 +1340,22 @@ func (x *CountUserGetFavoriteRequest) fastWriteField1(buf []byte) (offset int) {
 	return offset
 }
 
+func (x *CountUserFavoriteRequest) FastWrite(buf []byte) (offset int) {
+	if x == nil {
+		return offset
+	}
+	offset += x.fastWriteField1(buf[offset:])
+	return offset
+}
+
+func (x *CountUserFavoriteRequest) fastWriteField1(buf []byte) (offset int) {
+	if x.UserID == 0 {
+		return offset
+	}
+	offset += fastpb.WriteInt64(buf[offset:], 1, x.UserID)
+	return offset
+}
+
 func (x *CountResponse) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
@@ -1863,6 +1904,22 @@ func (x *CountUserGetFavoriteRequest) sizeField1() (n int) {
 	return n
 }
 
+func (x *CountUserFavoriteRequest) Size() (n int) {
+	if x == nil {
+		return n
+	}
+	n += x.sizeField1()
+	return n
+}
+
+func (x *CountUserFavoriteRequest) sizeField1() (n int) {
+	if x.UserID == 0 {
+		return n
+	}
+	n += fastpb.SizeInt64(1, x.UserID)
+	return n
+}
+
 func (x *CountResponse) Size() (n int) {
 	if x == nil {
 		return n
@@ -1976,6 +2033,10 @@ var fieldIDToName_CountVideoGetCommentRequest = map[int32]string{
 }
 
 var fieldIDToName_CountUserGetFavoriteRequest = map[int32]string{
+	1: "UserID",
+}
+
+var fieldIDToName_CountUserFavoriteRequest = map[int32]string{
 	1: "UserID",
 }
 

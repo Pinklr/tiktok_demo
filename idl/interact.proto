@@ -97,6 +97,11 @@ message CountUserGetFavoriteRequest {
   int64 userID = 1;
 }
 
+// 请求用户点赞总数
+message CountUserFavoriteRequest {
+  int64 userID = 1;
+}
+
 // 回复统计结果
 message CountResponse {
   int64 count = 1;
@@ -113,4 +118,5 @@ service InteractService {
   rpc CountVideoGetFavorite(CountVideoGetFavoriteRequest) returns (CountResponse) {}
   rpc CountVideoGetComment(CountVideoGetCommentRequest) returns (CountResponse) {}
   rpc CountUserGetFavorite(CountUserGetFavoriteRequest) returns (CountResponse) {}
+  rpc CountUserFavorite(CountUserFavoriteRequest) returns (CountUserFavoriteRequest) {}
 }
