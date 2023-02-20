@@ -56,7 +56,19 @@ func (s *VideoServiceImpl) VideoAction(ctx context.Context, req *video.VideoActi
 
 // List implements the VideoServiceImpl interface.
 func (s *VideoServiceImpl) List(ctx context.Context, req *video.ListRequest) (resp *video.ListResponse, err error) {
-	// TODO: Your code here...
+	resp = new(video.ListResponse)
+	if req.UserID <= 0 {
+		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
+		return
+	}
+
+	videos, err := service.GetVideoByUserID(ctx, req.UserID)
+	if err != nil {
+		resp.BaseResp = pack.BuildBaseResp(err)
+		return
+	}
+	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp.Videos = videos
 	return
 }
 

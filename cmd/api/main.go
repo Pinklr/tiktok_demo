@@ -91,9 +91,9 @@ func main() {
 	user.POST("refresh/", authMiddleware.RefreshHandler)
 
 	publish := v1.Group("publish/")
-	publish.GET("list/", handler.PublishListHandler)
 	publish.Use(authMiddleware.MiddlewareFunc())
 	publish.POST("action/", handler.UploadVideoHandler)
+	publish.GET("list/", handler.PublishListHandler)
 
 	v1.GET("feed", handler.FeedHandler)
 

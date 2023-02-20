@@ -92,5 +92,5 @@ func PublishListHandler(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, err, nil, "data")
 		return
 	}
-	SendResponse(c, err, videos, "data")
+	SendResponse(c, errno.Success, videos, "video_list")
 }

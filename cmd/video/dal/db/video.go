@@ -30,3 +30,12 @@ func LatestVideo(ctx context.Context, latest time.Time) ([]*Video, error) {
 	}
 	return res, nil
 }
+
+func GetVideoByUserID(ctx context.Context, userID int64) ([]*Video, error) {
+	res := make([]*Video, 0)
+	err := DB.WithContext(ctx).Where("author_id = ?", userID).Find(&res).Error
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
