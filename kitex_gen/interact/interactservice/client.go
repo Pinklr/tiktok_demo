@@ -18,6 +18,7 @@ type Client interface {
 	CountVideoGetFavorite(ctx context.Context, Req *interact.CountVideoGetFavoriteRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error)
 	CountVideoGetComment(ctx context.Context, Req *interact.CountVideoGetCommentRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error)
 	CountUserGetFavorite(ctx context.Context, Req *interact.CountUserGetFavoriteRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error)
+	CountUserFavorite(ctx context.Context, Req *interact.CountUserFavoriteRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -82,4 +83,9 @@ func (p *kInteractServiceClient) CountVideoGetComment(ctx context.Context, Req *
 func (p *kInteractServiceClient) CountUserGetFavorite(ctx context.Context, Req *interact.CountUserGetFavoriteRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.CountUserGetFavorite(ctx, Req)
+}
+
+func (p *kInteractServiceClient) CountUserFavorite(ctx context.Context, Req *interact.CountUserFavoriteRequest, callOptions ...callopt.Option) (r *interact.CountResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CountUserFavorite(ctx, Req)
 }

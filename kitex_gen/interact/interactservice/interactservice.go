@@ -29,6 +29,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"CountVideoGetFavorite": kitex.NewMethodInfo(countVideoGetFavoriteHandler, newCountVideoGetFavoriteArgs, newCountVideoGetFavoriteResult, false),
 		"CountVideoGetComment":  kitex.NewMethodInfo(countVideoGetCommentHandler, newCountVideoGetCommentArgs, newCountVideoGetCommentResult, false),
 		"CountUserGetFavorite":  kitex.NewMethodInfo(countUserGetFavoriteHandler, newCountUserGetFavoriteArgs, newCountUserGetFavoriteResult, false),
+		"CountUserFavorite":     kitex.NewMethodInfo(countUserFavoriteHandler, newCountUserFavoriteArgs, newCountUserFavoriteResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "douyin.interact",
@@ -1059,6 +1060,151 @@ func (p *CountUserGetFavoriteResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
+func countUserFavoriteHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	switch s := arg.(type) {
+	case *streaming.Args:
+		st := s.Stream
+		req := new(interact.CountUserFavoriteRequest)
+		if err := st.RecvMsg(req); err != nil {
+			return err
+		}
+		resp, err := handler.(interact.InteractService).CountUserFavorite(ctx, req)
+		if err != nil {
+			return err
+		}
+		if err := st.SendMsg(resp); err != nil {
+			return err
+		}
+	case *CountUserFavoriteArgs:
+		success, err := handler.(interact.InteractService).CountUserFavorite(ctx, s.Req)
+		if err != nil {
+			return err
+		}
+		realResult := result.(*CountUserFavoriteResult)
+		realResult.Success = success
+	}
+	return nil
+}
+func newCountUserFavoriteArgs() interface{} {
+	return &CountUserFavoriteArgs{}
+}
+
+func newCountUserFavoriteResult() interface{} {
+	return &CountUserFavoriteResult{}
+}
+
+type CountUserFavoriteArgs struct {
+	Req *interact.CountUserFavoriteRequest
+}
+
+func (p *CountUserFavoriteArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetReq() {
+		p.Req = new(interact.CountUserFavoriteRequest)
+	}
+	return p.Req.FastRead(buf, _type, number)
+}
+
+func (p *CountUserFavoriteArgs) FastWrite(buf []byte) (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.FastWrite(buf)
+}
+
+func (p *CountUserFavoriteArgs) Size() (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.Size()
+}
+
+func (p *CountUserFavoriteArgs) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetReq() {
+		return out, fmt.Errorf("No req in CountUserFavoriteArgs")
+	}
+	return proto.Marshal(p.Req)
+}
+
+func (p *CountUserFavoriteArgs) Unmarshal(in []byte) error {
+	msg := new(interact.CountUserFavoriteRequest)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Req = msg
+	return nil
+}
+
+var CountUserFavoriteArgs_Req_DEFAULT *interact.CountUserFavoriteRequest
+
+func (p *CountUserFavoriteArgs) GetReq() *interact.CountUserFavoriteRequest {
+	if !p.IsSetReq() {
+		return CountUserFavoriteArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+func (p *CountUserFavoriteArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+type CountUserFavoriteResult struct {
+	Success *interact.CountResponse
+}
+
+var CountUserFavoriteResult_Success_DEFAULT *interact.CountResponse
+
+func (p *CountUserFavoriteResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetSuccess() {
+		p.Success = new(interact.CountResponse)
+	}
+	return p.Success.FastRead(buf, _type, number)
+}
+
+func (p *CountUserFavoriteResult) FastWrite(buf []byte) (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.FastWrite(buf)
+}
+
+func (p *CountUserFavoriteResult) Size() (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.Size()
+}
+
+func (p *CountUserFavoriteResult) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetSuccess() {
+		return out, fmt.Errorf("No req in CountUserFavoriteResult")
+	}
+	return proto.Marshal(p.Success)
+}
+
+func (p *CountUserFavoriteResult) Unmarshal(in []byte) error {
+	msg := new(interact.CountResponse)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Success = msg
+	return nil
+}
+
+func (p *CountUserFavoriteResult) GetSuccess() *interact.CountResponse {
+	if !p.IsSetSuccess() {
+		return CountUserFavoriteResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+func (p *CountUserFavoriteResult) SetSuccess(x interface{}) {
+	p.Success = x.(*interact.CountResponse)
+}
+
+func (p *CountUserFavoriteResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1134,6 +1280,16 @@ func (p *kClient) CountUserGetFavorite(ctx context.Context, Req *interact.CountU
 	_args.Req = Req
 	var _result CountUserGetFavoriteResult
 	if err = p.c.Call(ctx, "CountUserGetFavorite", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CountUserFavorite(ctx context.Context, Req *interact.CountUserFavoriteRequest) (r *interact.CountResponse, err error) {
+	var _args CountUserFavoriteArgs
+	_args.Req = Req
+	var _result CountUserFavoriteResult
+	if err = p.c.Call(ctx, "CountUserFavorite", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
