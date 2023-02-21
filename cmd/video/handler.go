@@ -23,7 +23,7 @@ func (s *VideoServiceImpl) Feed(ctx context.Context, req *video.FeedRequest) (re
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return
 	}
-	videos, nextTime, err := service.Feed(ctx, latestTime)
+	videos, nextTime, err := service.Feed(ctx, latestTime, req.UserId)
 	if err != nil {
 		resp.BaseResp = pack.BuildBaseResp(err)
 		return

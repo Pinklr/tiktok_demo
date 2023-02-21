@@ -108,6 +108,15 @@ message CountResponse {
   BaseResp base_resp = 2;
 }
 
+// 是否已点赞
+message IsFavoriteRequest {
+  int64 userID = 1;
+  int64 videoID = 2;
+}
+message IsFavoriteResponse {
+  bool isFavorite = 1;
+  BaseResp base_resp = 2;
+}
 
 
 service InteractService {
@@ -119,4 +128,5 @@ service InteractService {
   rpc CountVideoGetComment(CountVideoGetCommentRequest) returns (CountResponse) {}
   rpc CountUserGetFavorite(CountUserGetFavoriteRequest) returns (CountResponse) {}
   rpc CountUserFavorite(CountUserFavoriteRequest) returns (CountResponse) {}
+  rpc IsFavorite(IsFavoriteRequest) returns (IsFavoriteResponse){}
 }

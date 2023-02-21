@@ -53,3 +53,12 @@ func UserFavoriteList(ctx context.Context, userID int64) ([]int64, error) {
 	}
 	return res, err
 }
+
+func IsFavorited(ctx context.Context, userID, videoID int64) (bool, error) {
+	model := make([]*Favorite, 0)
+	err := DB.WithContext(ctx).Where("user_id = ? and video_id = ?", userID, videoID).Find(&model).Error
+	if err != nil {
+		return false, err
+	}
+	return len(model) > 0, nil
+}

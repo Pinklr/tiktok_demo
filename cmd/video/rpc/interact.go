@@ -90,6 +90,17 @@ func GetVideoCommentCount(ctx context.Context, req *interact.CountVideoGetCommen
 	return resp.Count, nil
 }
 
+func IsFavorited(ctx context.Context, req *interact.IsFavoriteRequest) (bool, error) {
+	resp, err := interactClient.IsFavorite(ctx, req)
+	if err != nil {
+		return false, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return false, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+	}
+	return resp.IsFavorite, nil
+}
+
 func GetUserFavoriteCount(ctx context.Context, req *interact.CountUserGetFavoriteRequest) (int64, error) {
 	resp, err := interactClient.CountUserGetFavorite(ctx, req)
 	if err != nil {

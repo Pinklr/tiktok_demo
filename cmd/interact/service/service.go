@@ -119,3 +119,7 @@ func CountUserFavorite(ctx context.Context, userID int64) (int64, error) {
 	}
 	return res, nil
 }
+
+func IsFavorited(ctx context.Context, userID, videoID int64) (bool, error) {
+	return db.IsFavorited(ctx, userID, videoID)
+}

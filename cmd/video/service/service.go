@@ -21,7 +21,7 @@ func UploadVideo(ctx context.Context, authorID int64, playURL, coverURL, title s
 	}})
 }
 
-func Feed(ctx context.Context, latest_time int64) ([]*video.Video, int64, error) {
+func Feed(ctx context.Context, latest_time, userID int64) ([]*video.Video, int64, error) {
 	timeLatest := time.Unix(latest_time/1000, 0)
 	log.Println(timeLatest)
 	model, err := db.LatestVideo(ctx, timeLatest)
@@ -70,6 +70,9 @@ func Feed(ctx context.Context, latest_time int64) ([]*video.Video, int64, error)
 
 			videos[i].FavoriteCount, _ = rpc.GetVideoFavoriteCount(ctx, &interact.CountVideoGetFavoriteRequest{VideoID: videos[i].Id})
 			videos[i].CommentCount, _ = rpc.GetVideoCommentCount(ctx, &interact.CountVideoGetCommentRequest{VideoID: videos[i].Id})
+			if userID > 0 {
+				videos[i].IsFavorite, _ = rpc.IsFavorited(ctx, &interact.IsFavoriteRequest{VideoID: videos[i].Id, UserID: userID})
+			}
 		}
 	}
 

@@ -55,13 +55,15 @@ func UploadVideoHandler(ctx context.Context, c *app.RequestContext) {
 
 func FeedHandler(ctx context.Context, c *app.RequestContext) {
 	latestTime, err := strconv.ParseInt(c.Query("latest_time"), 10, 64)
+	claims := jwt.ExtractClaims(ctx, c)
+	userId := int64(claims[constants.IdentityKey].(float64))
 	if err != nil {
 		SendResponse(c, err, nil, "data")
 		return
 	}
 	var req video.FeedRequest
 	req.LatestTime = latestTime
-
+	req.UserId = userId
 	nextTime, videos, err := rpc.Feed(ctx, &req)
 	if err != nil {
 		SendResponse(c, err, nil, "data")
