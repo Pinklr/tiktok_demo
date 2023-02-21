@@ -35,7 +35,7 @@ func UploadVideoHandler(ctx context.Context, c *app.RequestContext) {
 	}
 
 	playurl := constants.PlayURLPrefix + filename
-	err = rpc.UploadVideo(ctx, &video.VideoActionRequest{Video: &video.Video{
+	err = rpc.VideoAction(ctx, &video.VideoActionRequest{Video: &video.Video{
 		Author: &video.User{
 			Id: userId,
 		},
@@ -62,7 +62,7 @@ func FeedHandler(ctx context.Context, c *app.RequestContext) {
 	var req video.FeedRequest
 	req.LatestTime = latestTime
 
-	videos, nextTime, err := rpc.Feed(ctx, &req)
+	nextTime, videos, err := rpc.Feed(ctx, &req)
 	if err != nil {
 		SendResponse(c, err, nil, "data")
 		return
@@ -74,4 +74,23 @@ func FeedHandler(ctx context.Context, c *app.RequestContext) {
 		"next_time":   nextTime,
 		"video_list":  videos,
 	})
+}
+
+func PublishListHandler(ctx context.Context, c *app.RequestContext) {
+	userId, err := strconv.ParseInt(c.Query(constants.UserIdQueryKey), 10, 64)
+	if err != nil {
+		SendResponse(c, err, nil, "data")
+		return
+	}
+	// 如果用户id为0，则从jwt token中获取用户自己的id
+	if userId == 0 {
+		claims := jwt.ExtractClaims(ctx, c)
+		userId = int64(claims[constants.IdentityKey].(float64))
+	}
+	videos, err := rpc.List(ctx, &video.ListRequest{UserID: userId})
+	if err != nil {
+		SendResponse(c, err, nil, "data")
+		return
+	}
+	SendResponse(c, errno.Success, videos, "video_list")
 }

@@ -15,7 +15,7 @@ var interactClient interactservice.Client
 func initInteractRpc() {
 	c, err := interactservice.NewClient(
 		constants.InteractServiceName,
-		client.WithHostPorts("0.0.0.0:8889"),
+		client.WithHostPorts("0.0.0.0:8890"),
 	)
 	if err != nil {
 		panic(err)
@@ -45,15 +45,16 @@ func GetFavorateList(ctx context.Context, req *interact.FavoriteListRequest) ([]
 	return resp.Videos, nil
 }
 
-func CommentAction(ctx context.Context, req *interact.CommentActionRequest) error {
+func CommentAction(ctx context.Context, req *interact.CommentActionRequest) (*interact.Comment, error) {
 	resp, err := interactClient.CommentAction(ctx, req)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
-		return errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
-	return nil
+
+	return resp.Comment, nil
 }
 
 func GetCommentList(ctx context.Context, req *interact.CommentListRequest) ([]*interact.Comment, error) {

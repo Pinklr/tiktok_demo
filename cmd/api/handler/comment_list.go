@@ -14,25 +14,23 @@ import (
 func CommentListHandler(ctx context.Context, c *app.RequestContext) {
 
 	token := c.Query(constants.TokenQueryKey)
-	video_id, err1 := strconv.ParseInt(c.Query(constants.VodeoIdQueryKey), 10, 64)
+	videoId, err1 := strconv.ParseInt(c.Query(constants.VodeoIdQueryKey), 10, 64)
 
-	println(video_id)
 	if len(token) == 0 || err1 != nil {
 		SendResponse(c, errno.ParamErr, nil, "data")
 		return
 
 	}
 
-	Comment_list, err := rpc.GetCommentList(ctx, &interact.CommentListRequest{
+	CommentList, err := rpc.GetCommentList(ctx, &interact.CommentListRequest{
 
-			//UserID:      token,
-			VideoID:     video_id,
+		//UserID:      token,
+		VideoID: videoId,
+	})
+	if err != nil {
+		SendResponse(c, err, nil, "data")
+		return
+	}
 
-		})
-		if err != nil {
-			SendResponse(c, err, Comment_list, "video_list")
-			return
-		}
-
-	SendResponse(c, errno.Success, nil, "data")
+	SendResponse(c, errno.Success, CommentList, "comment_list")
 }
