@@ -4,7 +4,9 @@ import (
 	"context"
 	"github.com/Pinklr/tiktok_demo/cmd/interact/dal/db"
 	"github.com/Pinklr/tiktok_demo/cmd/interact/pack"
+	"github.com/Pinklr/tiktok_demo/cmd/interact/rpc"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/interact"
+	"github.com/Pinklr/tiktok_demo/kitex_gen/video"
 )
 
 // Favorite 点赞, 取消赞
@@ -21,7 +23,40 @@ func Favorite(ctx context.Context, userID, videoID, Type int64) error {
 
 // FavoriteList 返回用户点赞过的视频列表
 func FavoriteList(ctx context.Context, userID int64) ([]*interact.Video, error) {
-	return nil, nil
+	videoIDs, err := db.UserFavoriteList(ctx, userID)
+	if err != nil {
+		return nil, err
+	}
+	model, err := rpc.MGetVideo(ctx, &video.MGetVideoRequest{VideoIDs: videoIDs})
+	if err != nil {
+		return nil, err
+	}
+	videos := make([]*interact.Video, 0, len(model))
+	for _, item := range model {
+		videos = append(videos, &interact.Video{
+			Id: item.Id,
+			Author: &interact.User{
+				Id:              item.Author.Id,
+				Name:            item.Author.Name,
+				FollowCount:     item.Author.FollowerCount,
+				FollowerCount:   item.Author.FollowCount,
+				IsFollow:        item.Author.IsFollow,
+				Avatar:          item.Author.Avatar,
+				BackgroundImage: item.Author.BackgroundImage,
+				Signature:       item.Author.Signature,
+				TotalFavorited:  item.Author.TotalFavorited,
+				WorkCount:       item.Author.WorkCount,
+				FavoriteCount:   item.Author.FavoriteCount,
+			},
+			PlayUrl:       item.PlayUrl,
+			CoverUrl:      item.CoverUrl,
+			FavoriteCount: item.FavoriteCount,
+			CommentCount:  item.CommentCount,
+			IsFavorite:    item.IsFavorite,
+			Title:         item.Title,
+		})
+	}
+	return videos, nil
 }
 
 func CreateComment(ctx context.Context, userID, videoID int64, content string) (*interact.Comment, error) {
