@@ -66,25 +66,14 @@ func GetUserInfo(ctx context.Context, userID int64) (*user.User, error) {
 	}
 	user := pack.User(model)
 
-	// TODO 获取用户作品数、点赞数、评论数
-	count1, err := rpc.CountUserVideo(ctx, &video.CountUserVideoRequest{UserID: userID})
-	if err != nil {
-		return nil, err
-	}
+	count1, _ := rpc.CountUserVideo(ctx, &video.CountUserVideoRequest{UserID: userID})
 	user.WorkCount = &count1
 
-	count2, err := rpc.GetUserFavoriteCount(ctx, &interact.CountUserGetFavoriteRequest{UserID: userID})
-	if err != nil {
-		return nil, err
-	}
+	count2, _ := rpc.GetUserFavoriteCount(ctx, &interact.CountUserGetFavoriteRequest{UserID: userID})
 	user.TotalFavorited = &count2
 
-	favorites, err := rpc.GetFavorateList(ctx, &interact.FavoriteListRequest{UserID: userID})
-	if err != nil {
-		return nil, err
-	}
-	var count3 int64
-	count3 = int64(len(favorites))
+	favorites, _ := rpc.GetFavorateList(ctx, &interact.FavoriteListRequest{UserID: userID})
+	count3 := int64(len(favorites))
 	user.FavoriteCount = &count3
 	return user, nil
 }

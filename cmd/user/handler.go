@@ -6,6 +6,7 @@ import (
 	"github.com/Pinklr/tiktok_demo/cmd/user/service"
 	user "github.com/Pinklr/tiktok_demo/kitex_gen/user"
 	"github.com/Pinklr/tiktok_demo/pkg/errno"
+	"log"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
@@ -63,6 +64,7 @@ func (s *UserServiceImpl) CheckUser(ctx context.Context, req *user.CheckUserRequ
 
 // GetUserInfo implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.GetUserInfoRequest) (resp *user.GetUserInfoResponse, err error) {
+	log.Println(req)
 	resp = new(user.GetUserInfoResponse)
 	if req.UserId <= 0 {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
