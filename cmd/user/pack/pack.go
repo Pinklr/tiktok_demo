@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/Pinklr/tiktok_demo/cmd/user/dal/db"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/user"
+	"github.com/Pinklr/tiktok_demo/pkg/constants"
 	"github.com/Pinklr/tiktok_demo/pkg/errno"
 	"time"
 )
@@ -31,8 +32,8 @@ func baseResp(err errno.ErrNo) *user.BaseResp {
 func User(model *db.User) *user.User {
 	// TODO
 	var a, b int64 = 100, 100
-	var avatar string = "http://192.168.1.104:9002/static/image/avatar.jpeg"
-	var background string = "http://192.168.1.104:9002/static/image/background.jpeg"
+	var avatar string = "http://" + constants.ServerAddr + ":9002/static/image/avatar.jpeg"
+	var background string = "http://" + "ServerAddr" + ":9002/static/image/background.jpeg"
 	var signature string = "这个用户很懒，什么都没有留下"
 	return &user.User{
 		Id:              int64(model.Model.ID),
