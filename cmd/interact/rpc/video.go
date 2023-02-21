@@ -33,3 +33,13 @@ func MGetVideo(ctx context.Context, req *video.MGetVideoRequest) ([]*video.Video
 	}
 	return resp.Videos, nil
 }
+func List(ctx context.Context, req *video.ListRequest) ([]*video.Video, error) {
+	resp, err := videoClient.List(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+	}
+	return resp.Videos, nil
+}

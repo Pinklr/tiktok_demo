@@ -75,6 +75,7 @@ message CountUserVideoResponse {
 //MGetVideo: 输入一个video id列表，查询并返回Video列表
 message MGetVideoRequest {
   repeated int64 videoIDs = 1;
+  int64 userID = 2;
 }
 message MGetVideoResponse {
   repeated Video videos = 1;

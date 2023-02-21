@@ -124,6 +124,9 @@ func GetVideoByUserID(ctx context.Context, userID int64) ([]*video.Video, error)
 
 			videos[i].FavoriteCount, _ = rpc.GetVideoFavoriteCount(ctx, &interact.CountVideoGetFavoriteRequest{VideoID: videos[i].Id})
 			videos[i].CommentCount, _ = rpc.GetVideoCommentCount(ctx, &interact.CountVideoGetCommentRequest{VideoID: videos[i].Id})
+			if userID > 0 {
+				videos[i].IsFavorite, _ = rpc.IsFavorited(ctx, &interact.IsFavoriteRequest{VideoID: videos[i].Id, UserID: userID})
+			}
 		}
 	}
 
@@ -138,7 +141,7 @@ func CountUserVideo(ctx context.Context, userID int64) (int64, error) {
 	return count, nil
 }
 
-func MGetVideo(ctx context.Context, videoIDs []int64) ([]*video.Video, error) {
+func MGetVideo(ctx context.Context, videoIDs []int64, userID int64) ([]*video.Video, error) {
 	model, err := db.MGetVideo(ctx, videoIDs)
 	if err != nil {
 		return nil, err
@@ -182,6 +185,9 @@ func MGetVideo(ctx context.Context, videoIDs []int64) ([]*video.Video, error) {
 			}
 			videos[i].FavoriteCount, _ = rpc.GetVideoFavoriteCount(ctx, &interact.CountVideoGetFavoriteRequest{VideoID: videos[i].Id})
 			videos[i].CommentCount, _ = rpc.GetVideoCommentCount(ctx, &interact.CountVideoGetCommentRequest{VideoID: videos[i].Id})
+			if userID > 0 {
+				videos[i].IsFavorite, _ = rpc.IsFavorited(ctx, &interact.IsFavoriteRequest{VideoID: videos[i].Id, UserID: userID})
+			}
 		}
 	}
 

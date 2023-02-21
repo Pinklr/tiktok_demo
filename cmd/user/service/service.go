@@ -5,6 +5,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"github.com/Pinklr/tiktok_demo/cmd/user/rpc"
+	"github.com/Pinklr/tiktok_demo/kitex_gen/interact"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/video"
 	"io"
 
@@ -66,11 +67,25 @@ func GetUserInfo(ctx context.Context, userID int64) (*user.User, error) {
 	user := pack.User(model)
 
 	// TODO 获取用户作品数、点赞数、评论数
-	count, err := rpc.CountUserVideo(ctx, &video.CountUserVideoRequest{UserID: userID})
+	count1, err := rpc.CountUserVideo(ctx, &video.CountUserVideoRequest{UserID: userID})
 	if err != nil {
 		return nil, err
 	}
-	user.WorkCount = &count
+	user.WorkCount = &count1
+
+	count2, err := rpc.GetUserFavoriteCount(ctx, &interact.CountUserGetFavoriteRequest{UserID: userID})
+	if err != nil {
+		return nil, err
+	}
+	user.TotalFavorited = &count2
+
+	favorites, err := rpc.GetFavorateList(ctx, &interact.FavoriteListRequest{UserID: userID})
+	if err != nil {
+		return nil, err
+	}
+	var count3 int64
+	count3 = int64(len(favorites))
+	user.FavoriteCount = &count3
 	return user, nil
 }
 
@@ -79,16 +94,5 @@ func MGetUser(ctx context.Context, userIDs []int64) ([]*user.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	users := pack.Users(model)
-
-	// TODO 获取用户作品数、点赞数、评论数
-	for i := 0; i < len(users); i += 1 {
-		id := users[i].Id
-		count, err := rpc.CountUserVideo(ctx, &video.CountUserVideoRequest{UserID: id})
-		if err != nil {
-			return nil, err
-		}
-		users[i].WorkCount = &count
-	}
-	return users, nil
+	return pack.Users(model), nil
 }

@@ -80,7 +80,7 @@ func (s *VideoServiceImpl) MGetVideo(ctx context.Context, req *video.MGetVideoRe
 		return
 	}
 
-	videos, err := service.MGetVideo(ctx, req.VideoIDs)
+	videos, err := service.MGetVideo(ctx, req.VideoIDs, req.UserID)
 	if err != nil {
 		resp.BaseResp = pack.BuildBaseResp(err)
 		return

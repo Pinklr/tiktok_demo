@@ -27,7 +27,7 @@ func FavoriteList(ctx context.Context, userID int64) ([]*interact.Video, error) 
 	if err != nil {
 		return nil, err
 	}
-	model, err := rpc.MGetVideo(ctx, &video.MGetVideoRequest{VideoIDs: videoIDs})
+	model, err := rpc.MGetVideo(ctx, &video.MGetVideoRequest{VideoIDs: videoIDs, UserID: userID})
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,15 @@ func CountVideoGetComment(ctx context.Context, videoID int64) (int64, error) {
 }
 
 func CountUserGetFavorite(ctx context.Context, userID int64) (int64, error) {
-	return 0, nil
+	videos, err := rpc.List(ctx, &video.ListRequest{UserID: userID})
+	if err != nil {
+		return 0, err
+	}
+	var res int64 = 0
+	for _, item := range videos {
+		res += item.FavoriteCount
+	}
+	return res, nil
 }
 
 func CountUserFavorite(ctx context.Context, userID int64) (int64, error) {
