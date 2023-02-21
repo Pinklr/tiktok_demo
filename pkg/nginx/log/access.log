@@ -4392,3 +4392,4 @@
 172.17.0.1 - - [21/Feb/2023:09:38:21 +0000] "GET / HTTP/1.1" 403 153 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Safari/605.1.15" "-"
 172.17.0.1 - - [21/Feb/2023:09:38:21 +0000] "GET /favicon.ico HTTP/1.1" 404 153 "http://rdstihz.tpddns.cn:9002/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Safari/605.1.15" "-"
 172.17.0.1 - - [21/Feb/2023:09:38:32 +0000] "GET /html HTTP/1.1" 301 169 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Safari/605.1.15" "-"
+172.21.0.1 - - [21/Feb/2023:14:57:12 +0000] "GET /static/image/cover.jpeg HTTP/1.1" 200 31547 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Safari/605.1.15" "-"
