@@ -97,9 +97,11 @@ func main() {
 	v1.GET("feed", handler.FeedHandler)
 
 	favorite := v1.Group("favorite/")
+	favorite.Use(authMiddleware.MiddlewareFunc())
 	favorite.POST("action/", handler.FavoriteHandler)
 	favorite.GET("list/", handler.FavoriteListHandler)
 	comment := v1.Group("comment/")
+	comment.Use(authMiddleware.MiddlewareFunc())
 	comment.POST("action/", handler.CommentActionHandler)
 	comment.GET("list/", handler.CommentListHandler)
 

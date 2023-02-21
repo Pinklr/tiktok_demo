@@ -1,15 +1,15 @@
 package pack
 
 import (
-	"simple-douyin/kitex_gen/userproto"
-	"simple-douyin/pkg/errno"
+	"github.com/Pinklr/tiktok_demo/kitex_gen/interact"
+	"github.com/Pinklr/tiktok_demo/pkg/errno"
 )
 
 // BuildBaseResp build baseResp from error
-func BuildBaseResp(err error) *userproto.BaseResp {
+func BuildBaseResp(err error) *interact.BaseResp {
 	return baseResp(errno.ConvertErr(err))
 }
 
-func baseResp(err errno.ErrNo) *userproto.BaseResp {
-	return &userproto.BaseResp{StatusCode: err.ErrCode, StatusMsg: err.ErrMsg}
+func baseResp(err errno.ErrNo) *interact.BaseResp {
+	return &interact.BaseResp{StatusCode: err.ErrCode, StatusMessage: err.ErrMsg}
 }

@@ -1,28 +1,27 @@
 package pack
 
 import (
-	"errors"
+	"github.com/Pinklr/tiktok_demo/cmd/interact/dal/db"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/interact"
-	"github.com/Pinklr/tiktok_demo/pkg/errno"
-	"time"
 )
 
-func BuildBaseResp(err error) *interact.BaseResp {
-	if err == nil {
-		return baseResp(errno.Success)
+func Comment(model *db.Comment) *interact.Comment {
+	comments := &interact.Comment{
+		Id:          int64(model.ID),
+		User:        &interact.User{Id: model.UserID},
+		Content:     model.Content,
+		CreatedData: model.CreatedAt.String(),
 	}
-	e := errno.ErrNo{}
-	if errors.As(err, &e) {
-		return baseResp(e)
-	}
-	s := errno.ServiceErr.WithMessage(err.Error())
-	return baseResp(s)
+
+	// TODO 获取用户信息
+
+	return comments
 }
 
-func baseResp(err errno.ErrNo) *interact.BaseResp {
-	return &interact.BaseResp{
-		StatusCode:    err.ErrCode,
-		StatusMessage: err.ErrMsg,
-		ServiceTime:   time.Now().Unix(),
+func Comments(model []*db.Comment) []*interact.Comment {
+	res := make([]*interact.Comment, 0, len(model))
+	for _, item := range model {
+		res = append(res, Comment(item))
 	}
+	return res
 }
