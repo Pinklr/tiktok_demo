@@ -59,8 +59,10 @@ func (s *InteractServiceImpl) CommentAction(ctx context.Context, req *interact.C
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return
 	}
+	var comment *interact.Comment
 	if req.ActionType == 1 {
-		err = service.CreateComment(ctx, req.UserID, req.VideoID, *req.CommentText)
+		comment, err = service.CreateComment(ctx, req.UserID, req.VideoID, *req.CommentText)
+
 	} else {
 		err = service.DeleteComment(ctx, *req.CommentID)
 	}
@@ -69,7 +71,8 @@ func (s *InteractServiceImpl) CommentAction(ctx context.Context, req *interact.C
 		return
 	}
 	resp.BaseResp = pack.BuildBaseResp(errno.Success)
-	return
+	resp.Comment = comment
+	return resp, err
 }
 
 // CommentList implements the InteractServiceImpl interface.

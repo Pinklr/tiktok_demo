@@ -16,8 +16,9 @@ func (c *Comment) TableName() string {
 	return "comment"
 }
 
-func CreateComment(ctx context.Context, comments []*Comment) error {
-	return DB.WithContext(ctx).Create(comments).Error
+func CreateComment(ctx context.Context, comments *Comment) error {
+	err := DB.WithContext(ctx).Create(comments).Error
+	return err
 }
 
 func DeleteComment(ctx context.Context, id int64) error {
@@ -35,7 +36,7 @@ func CountVideoComment(ctx context.Context, videoID int64) (int64, error) {
 
 func VideoCommentList(ctx context.Context, videoID int64) ([]*Comment, error) {
 	res := make([]*Comment, 0)
-	err := DB.WithContext(ctx).Where("video_id = ?", videoID).Find(&res).Error
+	err := DB.WithContext(ctx).Where("video_id = ?", videoID).Order("created_at desc").Find(&res).Error
 	if err != nil {
 		return nil, err
 	}

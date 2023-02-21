@@ -24,12 +24,22 @@ func FavoriteList(ctx context.Context, userID int64) ([]*interact.Video, error) 
 	return nil, nil
 }
 
-func CreateComment(ctx context.Context, userID, videoID int64, content string) error {
-	return db.CreateComment(ctx, []*db.Comment{&db.Comment{
+func CreateComment(ctx context.Context, userID, videoID int64, content string) (*interact.Comment, error) {
+	model := &db.Comment{
 		UserID:  userID,
 		VideoID: videoID,
 		Content: content,
-	}})
+	}
+	err := db.CreateComment(ctx, model)
+	if err != nil {
+		return nil, err
+	}
+	return &interact.Comment{
+		Id:          int64(model.ID),
+		User:        &interact.User{Id: model.UserID},
+		Content:     model.Content,
+		CreatedData: model.CreatedAt.String(),
+	}, nil
 }
 
 func DeleteComment(ctx context.Context, commentID int64) error {
