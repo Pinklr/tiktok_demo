@@ -5,6 +5,7 @@ import (
 	"github.com/Pinklr/tiktok_demo/cmd/video/dal/db"
 	"github.com/Pinklr/tiktok_demo/cmd/video/pack"
 	"github.com/Pinklr/tiktok_demo/cmd/video/rpc"
+	"github.com/Pinklr/tiktok_demo/kitex_gen/interact"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/user"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/video"
 	"log"
@@ -20,7 +21,7 @@ func UploadVideo(ctx context.Context, authorID int64, playURL, coverURL, title s
 	}})
 }
 
-func Feed(ctx context.Context, latest_time int64) ([]*video.Video, int64, error) {
+func Feed(ctx context.Context, latest_time, userID int64) ([]*video.Video, int64, error) {
 	timeLatest := time.Unix(latest_time/1000, 0)
 	log.Println(timeLatest)
 	model, err := db.LatestVideo(ctx, timeLatest)
@@ -65,6 +66,12 @@ func Feed(ctx context.Context, latest_time int64) ([]*video.Video, int64, error)
 				TotalFavorited:  u.TotalFavorited,
 				WorkCount:       u.WorkCount,
 				FavoriteCount:   u.FavoriteCount,
+			}
+
+			videos[i].FavoriteCount, _ = rpc.GetVideoFavoriteCount(ctx, &interact.CountVideoGetFavoriteRequest{VideoID: videos[i].Id})
+			videos[i].CommentCount, _ = rpc.GetVideoCommentCount(ctx, &interact.CountVideoGetCommentRequest{VideoID: videos[i].Id})
+			if userID > 0 {
+				videos[i].IsFavorite, _ = rpc.IsFavorited(ctx, &interact.IsFavoriteRequest{VideoID: videos[i].Id, UserID: userID})
 			}
 		}
 	}
@@ -114,6 +121,12 @@ func GetVideoByUserID(ctx context.Context, userID int64) ([]*video.Video, error)
 				WorkCount:       u.WorkCount,
 				FavoriteCount:   u.FavoriteCount,
 			}
+
+			videos[i].FavoriteCount, _ = rpc.GetVideoFavoriteCount(ctx, &interact.CountVideoGetFavoriteRequest{VideoID: videos[i].Id})
+			videos[i].CommentCount, _ = rpc.GetVideoCommentCount(ctx, &interact.CountVideoGetCommentRequest{VideoID: videos[i].Id})
+			if userID > 0 {
+				videos[i].IsFavorite, _ = rpc.IsFavorited(ctx, &interact.IsFavoriteRequest{VideoID: videos[i].Id, UserID: userID})
+			}
 		}
 	}
 
@@ -126,4 +139,57 @@ func CountUserVideo(ctx context.Context, userID int64) (int64, error) {
 		return 0, err
 	}
 	return count, nil
+}
+
+func MGetVideo(ctx context.Context, videoIDs []int64, userID int64) ([]*video.Video, error) {
+	model, err := db.MGetVideo(ctx, videoIDs)
+	if err != nil {
+		return nil, err
+	}
+
+	// 没有视频，直接返回空列表
+	if len(model) == 0 {
+		return []*video.Video{}, nil
+	}
+
+	videos := pack.Videos(model)
+
+	//获取视频作者信息
+	uidMap := make(map[int64]struct{})
+	for _, item := range videos {
+		uidMap[item.Author.Id] = struct{}{}
+	}
+	uids := make([]int64, 0)
+	for i := range uidMap {
+		uids = append(uids, i)
+	}
+	userMap, err := rpc.MGetUser(ctx, &user.MGetUserRequest{UserIds: uids})
+	if err != nil {
+		return nil, err
+	}
+
+	for i := 0; i < len(videos); i++ {
+		if u, ok := userMap[videos[i].Author.Id]; ok {
+			videos[i].Author = &video.User{
+				Id:              u.Id,
+				Name:            u.Name,
+				FollowCount:     u.FollowCount,
+				FollowerCount:   u.FollowerCount,
+				IsFollow:        u.IsFollow,
+				Avatar:          u.Avatar,
+				BackgroundImage: u.BackgroundImage,
+				Signature:       u.Signature,
+				TotalFavorited:  u.TotalFavorited,
+				WorkCount:       u.WorkCount,
+				FavoriteCount:   u.FavoriteCount,
+			}
+			videos[i].FavoriteCount, _ = rpc.GetVideoFavoriteCount(ctx, &interact.CountVideoGetFavoriteRequest{VideoID: videos[i].Id})
+			videos[i].CommentCount, _ = rpc.GetVideoCommentCount(ctx, &interact.CountVideoGetCommentRequest{VideoID: videos[i].Id})
+			if userID > 0 {
+				videos[i].IsFavorite, _ = rpc.IsFavorited(ctx, &interact.IsFavoriteRequest{VideoID: videos[i].Id, UserID: userID})
+			}
+		}
+	}
+
+	return videos, nil
 }

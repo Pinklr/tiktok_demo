@@ -159,3 +159,20 @@ func (s *InteractServiceImpl) CountUserFavorite(ctx context.Context, req *intera
 	resp.Count = count
 	return
 }
+
+// IsFavorite implements the InteractServiceImpl interface.
+func (s *InteractServiceImpl) IsFavorite(ctx context.Context, req *interact.IsFavoriteRequest) (resp *interact.IsFavoriteResponse, err error) {
+	resp = new(interact.IsFavoriteResponse)
+	if req.UserID <= 0 || req.VideoID <= 0 {
+		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
+		return
+	}
+	isfavorited, err := service.IsFavorited(ctx, req.UserID, req.VideoID)
+	if err != nil {
+		resp.BaseResp = pack.BuildBaseResp(err)
+		return
+	}
+	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp.IsFavorite = isfavorited
+	return
+}

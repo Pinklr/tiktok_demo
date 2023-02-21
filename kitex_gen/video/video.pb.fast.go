@@ -297,6 +297,11 @@ func (x *FeedRequest) FastRead(buf []byte, _type int8, number int32) (offset int
 		if err != nil {
 			goto ReadFieldError
 		}
+	case 2:
+		offset, err = x.fastReadField2(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -312,6 +317,11 @@ ReadFieldError:
 
 func (x *FeedRequest) fastReadField1(buf []byte, _type int8) (offset int, err error) {
 	x.LatestTime, offset, err = fastpb.ReadInt64(buf, _type)
+	return offset, err
+}
+
+func (x *FeedRequest) fastReadField2(buf []byte, _type int8) (offset int, err error) {
+	x.UserId, offset, err = fastpb.ReadInt64(buf, _type)
 	return offset, err
 }
 
@@ -572,6 +582,11 @@ func (x *MGetVideoRequest) FastRead(buf []byte, _type int8, number int32) (offse
 		if err != nil {
 			goto ReadFieldError
 		}
+	case 2:
+		offset, err = x.fastReadField2(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -596,6 +611,11 @@ func (x *MGetVideoRequest) fastReadField1(buf []byte, _type int8) (offset int, e
 			x.VideoIDs = append(x.VideoIDs, v)
 			return offset, err
 		})
+	return offset, err
+}
+
+func (x *MGetVideoRequest) fastReadField2(buf []byte, _type int8) (offset int, err error) {
+	x.UserID, offset, err = fastpb.ReadInt64(buf, _type)
 	return offset, err
 }
 
@@ -868,6 +888,7 @@ func (x *FeedRequest) FastWrite(buf []byte) (offset int) {
 		return offset
 	}
 	offset += x.fastWriteField1(buf[offset:])
+	offset += x.fastWriteField2(buf[offset:])
 	return offset
 }
 
@@ -876,6 +897,14 @@ func (x *FeedRequest) fastWriteField1(buf []byte) (offset int) {
 		return offset
 	}
 	offset += fastpb.WriteInt64(buf[offset:], 1, x.LatestTime)
+	return offset
+}
+
+func (x *FeedRequest) fastWriteField2(buf []byte) (offset int) {
+	if x.UserId == 0 {
+		return offset
+	}
+	offset += fastpb.WriteInt64(buf[offset:], 2, x.UserId)
 	return offset
 }
 
@@ -1036,6 +1065,7 @@ func (x *MGetVideoRequest) FastWrite(buf []byte) (offset int) {
 		return offset
 	}
 	offset += x.fastWriteField1(buf[offset:])
+	offset += x.fastWriteField2(buf[offset:])
 	return offset
 }
 
@@ -1049,6 +1079,14 @@ func (x *MGetVideoRequest) fastWriteField1(buf []byte) (offset int) {
 			offset += fastpb.WriteInt64(buf[offset:], numTagOrKey, x.VideoIDs[numIdxOrVal])
 			return offset
 		})
+	return offset
+}
+
+func (x *MGetVideoRequest) fastWriteField2(buf []byte) (offset int) {
+	if x.UserID == 0 {
+		return offset
+	}
+	offset += fastpb.WriteInt64(buf[offset:], 2, x.UserID)
 	return offset
 }
 
@@ -1303,6 +1341,7 @@ func (x *FeedRequest) Size() (n int) {
 		return n
 	}
 	n += x.sizeField1()
+	n += x.sizeField2()
 	return n
 }
 
@@ -1311,6 +1350,14 @@ func (x *FeedRequest) sizeField1() (n int) {
 		return n
 	}
 	n += fastpb.SizeInt64(1, x.LatestTime)
+	return n
+}
+
+func (x *FeedRequest) sizeField2() (n int) {
+	if x.UserId == 0 {
+		return n
+	}
+	n += fastpb.SizeInt64(2, x.UserId)
 	return n
 }
 
@@ -1471,6 +1518,7 @@ func (x *MGetVideoRequest) Size() (n int) {
 		return n
 	}
 	n += x.sizeField1()
+	n += x.sizeField2()
 	return n
 }
 
@@ -1484,6 +1532,14 @@ func (x *MGetVideoRequest) sizeField1() (n int) {
 			n += fastpb.SizeInt64(numTagOrKey, x.VideoIDs[numIdxOrVal])
 			return n
 		})
+	return n
+}
+
+func (x *MGetVideoRequest) sizeField2() (n int) {
+	if x.UserID == 0 {
+		return n
+	}
+	n += fastpb.SizeInt64(2, x.UserID)
 	return n
 }
 
@@ -1547,6 +1603,7 @@ var fieldIDToName_BaseResp = map[int32]string{
 
 var fieldIDToName_FeedRequest = map[int32]string{
 	1: "LatestTime",
+	2: "UserId",
 }
 
 var fieldIDToName_FeedResponse = map[int32]string{
@@ -1583,6 +1640,7 @@ var fieldIDToName_CountUserVideoResponse = map[int32]string{
 
 var fieldIDToName_MGetVideoRequest = map[int32]string{
 	1: "VideoIDs",
+	2: "UserID",
 }
 
 var fieldIDToName_MGetVideoResponse = map[int32]string{

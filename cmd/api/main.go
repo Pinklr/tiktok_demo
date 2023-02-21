@@ -94,7 +94,9 @@ func main() {
 	publish.Use(authMiddleware.MiddlewareFunc())
 	publish.POST("action/", handler.UploadVideoHandler)
 	publish.GET("list/", handler.PublishListHandler)
-	v1.GET("feed", handler.FeedHandler)
+	feed := v1.Group("")
+	feed.Use(authMiddleware.MiddlewareFunc())
+	feed.GET("feed/", handler.FeedHandler)
 
 	favorite := v1.Group("favorite/")
 	favorite.Use(authMiddleware.MiddlewareFunc())

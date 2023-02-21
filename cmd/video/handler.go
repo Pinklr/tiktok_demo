@@ -23,7 +23,7 @@ func (s *VideoServiceImpl) Feed(ctx context.Context, req *video.FeedRequest) (re
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return
 	}
-	videos, nextTime, err := service.Feed(ctx, latestTime)
+	videos, nextTime, err := service.Feed(ctx, latestTime, req.UserId)
 	if err != nil {
 		resp.BaseResp = pack.BuildBaseResp(err)
 		return
@@ -74,7 +74,19 @@ func (s *VideoServiceImpl) List(ctx context.Context, req *video.ListRequest) (re
 
 // MGetVideo implements the VideoServiceImpl interface.
 func (s *VideoServiceImpl) MGetVideo(ctx context.Context, req *video.MGetVideoRequest) (resp *video.MGetVideoResponse, err error) {
-	// TODO: Your code here...
+	resp = new(video.MGetVideoResponse)
+	if len(req.VideoIDs) <= 0 {
+		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
+		return
+	}
+
+	videos, err := service.MGetVideo(ctx, req.VideoIDs, req.UserID)
+	if err != nil {
+		resp.BaseResp = pack.BuildBaseResp(err)
+		return
+	}
+	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp.Videos = videos
 	return
 }
 

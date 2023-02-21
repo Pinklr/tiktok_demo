@@ -45,3 +45,12 @@ func CountUserVideo(ctx context.Context, userID int64) (int64, error) {
 	err := DB.WithContext(ctx).Model(&Video{}).Where("author_id = ?", userID).Count(&count).Error
 	return count, err
 }
+
+func MGetVideo(ctx context.Context, videoIDs []int64) ([]*Video, error) {
+	res := make([]*Video, 0)
+	err := DB.WithContext(ctx).Where("id in ?", videoIDs).Find(&res).Error
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}

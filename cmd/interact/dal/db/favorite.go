@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"github.com/Pinklr/tiktok_demo/kitex_gen/interact"
 	"gorm.io/gorm"
 )
 
@@ -42,11 +41,24 @@ func CountVideoFavorite(ctx context.Context, videoIDs []int64) (int64, error) {
 	return res, nil
 }
 
-func UserFavoriteList(ctx context.Context, userID int64) ([]*interact.Video, error) {
-	res := make([]*interact.Video, 0)
-	err := DB.WithContext(ctx).Where("user_id = ?", userID).Find(&res).Error
+func UserFavoriteList(ctx context.Context, userID int64) ([]int64, error) {
+	model := make([]*Favorite, 0)
+	err := DB.WithContext(ctx).Where("user_id = ?", userID).Find(&model).Error
 	if err != nil {
 		return nil, err
 	}
-	return res, nil
+	res := make([]int64, 0, len(model))
+	for _, item := range model {
+		res = append(res, item.VideoID)
+	}
+	return res, err
+}
+
+func IsFavorited(ctx context.Context, userID, videoID int64) (bool, error) {
+	model := make([]*Favorite, 0)
+	err := DB.WithContext(ctx).Where("user_id = ? and video_id = ?", userID, videoID).Find(&model).Error
+	if err != nil {
+		return false, err
+	}
+	return len(model) > 0, nil
 }
