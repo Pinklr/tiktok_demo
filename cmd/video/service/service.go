@@ -5,6 +5,7 @@ import (
 	"github.com/Pinklr/tiktok_demo/cmd/video/dal/db"
 	"github.com/Pinklr/tiktok_demo/cmd/video/pack"
 	"github.com/Pinklr/tiktok_demo/cmd/video/rpc"
+	"github.com/Pinklr/tiktok_demo/kitex_gen/interact"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/user"
 	"github.com/Pinklr/tiktok_demo/kitex_gen/video"
 	"log"
@@ -66,6 +67,9 @@ func Feed(ctx context.Context, latest_time int64) ([]*video.Video, int64, error)
 				WorkCount:       u.WorkCount,
 				FavoriteCount:   u.FavoriteCount,
 			}
+
+			videos[i].FavoriteCount, _ = rpc.GetVideoFavoriteCount(ctx, &interact.CountVideoGetFavoriteRequest{VideoID: videos[i].Id})
+			videos[i].CommentCount, _ = rpc.GetVideoCommentCount(ctx, &interact.CountVideoGetCommentRequest{VideoID: videos[i].Id})
 		}
 	}
 
@@ -114,6 +118,9 @@ func GetVideoByUserID(ctx context.Context, userID int64) ([]*video.Video, error)
 				WorkCount:       u.WorkCount,
 				FavoriteCount:   u.FavoriteCount,
 			}
+
+			videos[i].FavoriteCount, _ = rpc.GetVideoFavoriteCount(ctx, &interact.CountVideoGetFavoriteRequest{VideoID: videos[i].Id})
+			videos[i].CommentCount, _ = rpc.GetVideoCommentCount(ctx, &interact.CountVideoGetCommentRequest{VideoID: videos[i].Id})
 		}
 	}
 
@@ -170,6 +177,8 @@ func MGetVideo(ctx context.Context, videoIDs []int64) ([]*video.Video, error) {
 				WorkCount:       u.WorkCount,
 				FavoriteCount:   u.FavoriteCount,
 			}
+			videos[i].FavoriteCount, _ = rpc.GetVideoFavoriteCount(ctx, &interact.CountVideoGetFavoriteRequest{VideoID: videos[i].Id})
+			videos[i].CommentCount, _ = rpc.GetVideoCommentCount(ctx, &interact.CountVideoGetCommentRequest{VideoID: videos[i].Id})
 		}
 	}
 
