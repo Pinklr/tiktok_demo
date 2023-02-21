@@ -40,7 +40,7 @@ func UploadVideoHandler(ctx context.Context, c *app.RequestContext) {
 			Id: userId,
 		},
 		PlayUrl:       playurl,
-		CoverUrl:      "http://192.168.1.104:9002/static/image/cover.jpeg",
+		CoverUrl:      "http://" + constants.ServerAddr + ":9002/static/image/cover.jpeg",
 		FavoriteCount: 0,
 		CommentCount:  0,
 		IsFavorite:    false,

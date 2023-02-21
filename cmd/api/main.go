@@ -81,7 +81,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	handler.AuthMiddleware = authMiddleware
 	v1 := r.Group("douyin/")
 	user := v1.Group("user/")
 	user.POST("login/", authMiddleware.LoginHandler)
