@@ -1,0 +1,379 @@
+2023/02/19 09:21:00 [notice] 1#1: using the "epoll" event method
+2023/02/19 09:21:00 [notice] 1#1: nginx/1.23.3
+2023/02/19 09:21:00 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2023/02/19 09:21:00 [notice] 1#1: OS: Linux 5.15.49-linuxkit
+2023/02/19 09:21:00 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/19 09:21:00 [notice] 1#1: start worker processes
+2023/02/19 09:21:00 [notice] 1#1: start worker process 20
+2023/02/19 09:21:00 [notice] 1#1: start worker process 21
+2023/02/19 09:21:00 [notice] 1#1: start worker process 22
+2023/02/19 09:21:00 [notice] 1#1: start worker process 23
+2023/02/19 09:28:12 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2023/02/19 09:28:12 [notice] 21#21: gracefully shutting down
+2023/02/19 09:28:12 [notice] 20#20: gracefully shutting down
+2023/02/19 09:28:12 [notice] 23#23: gracefully shutting down
+2023/02/19 09:28:12 [notice] 22#22: gracefully shutting down
+2023/02/19 09:28:12 [notice] 21#21: exiting
+2023/02/19 09:28:12 [notice] 20#20: exiting
+2023/02/19 09:28:12 [notice] 23#23: exiting
+2023/02/19 09:28:12 [notice] 22#22: exiting
+2023/02/19 09:28:12 [notice] 22#22: exit
+2023/02/19 09:28:12 [notice] 21#21: exit
+2023/02/19 09:28:12 [notice] 20#20: exit
+2023/02/19 09:28:12 [notice] 23#23: exit
+2023/02/19 09:28:12 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2023/02/19 09:28:12 [notice] 1#1: worker process 22 exited with code 0
+2023/02/19 09:28:12 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:28:12 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2023/02/19 09:28:12 [notice] 1#1: worker process 21 exited with code 0
+2023/02/19 09:28:12 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:28:12 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2023/02/19 09:28:12 [notice] 1#1: worker process 20 exited with code 0
+2023/02/19 09:28:12 [notice] 1#1: worker process 23 exited with code 0
+2023/02/19 09:28:12 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2023/02/19 09:28:12 [notice] 1#1: exit
+2023/02/19 09:28:19 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:29:42 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:29:44 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:29:47 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:29:53 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:30:01 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:30:02 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:30:34 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:30:36 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:30:47 [notice] 1#1: using the "epoll" event method
+2023/02/19 09:30:47 [notice] 1#1: nginx/1.23.3
+2023/02/19 09:30:47 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2023/02/19 09:30:47 [notice] 1#1: OS: Linux 5.15.49-linuxkit
+2023/02/19 09:30:47 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/19 09:30:47 [notice] 1#1: start worker processes
+2023/02/19 09:30:47 [notice] 1#1: start worker process 20
+2023/02/19 09:30:47 [notice] 1#1: start worker process 21
+2023/02/19 09:30:47 [notice] 1#1: start worker process 22
+2023/02/19 09:30:47 [notice] 1#1: start worker process 23
+2023/02/19 09:35:25 [emerg] 31#31: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:36:32 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2023/02/19 09:36:32 [notice] 22#22: gracefully shutting down
+2023/02/19 09:36:32 [notice] 22#22: exiting
+2023/02/19 09:36:32 [notice] 23#23: gracefully shutting down
+2023/02/19 09:36:32 [notice] 23#23: exiting
+2023/02/19 09:36:32 [notice] 20#20: gracefully shutting down
+2023/02/19 09:36:32 [notice] 21#21: gracefully shutting down
+2023/02/19 09:36:32 [notice] 22#22: exit
+2023/02/19 09:36:32 [notice] 23#23: exit
+2023/02/19 09:36:32 [notice] 20#20: exiting
+2023/02/19 09:36:32 [notice] 21#21: exiting
+2023/02/19 09:36:32 [notice] 20#20: exit
+2023/02/19 09:36:32 [notice] 21#21: exit
+2023/02/19 09:36:32 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2023/02/19 09:36:32 [notice] 1#1: worker process 23 exited with code 0
+2023/02/19 09:36:32 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:36:32 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2023/02/19 09:36:32 [notice] 1#1: worker process 20 exited with code 0
+2023/02/19 09:36:32 [notice] 1#1: worker process 22 exited with code 0
+2023/02/19 09:36:32 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:36:32 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2023/02/19 09:36:32 [notice] 1#1: worker process 21 exited with code 0
+2023/02/19 09:36:32 [notice] 1#1: exit
+2023/02/19 09:36:33 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:36:34 [emerg] 1#1: open() "/etc/nginx/conf.d/default.conf" failed (20: Not a directory) in /etc/nginx/nginx.conf:31
+2023/02/19 09:38:55 [notice] 1#1: using the "epoll" event method
+2023/02/19 09:38:55 [notice] 1#1: nginx/1.23.3
+2023/02/19 09:38:55 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2023/02/19 09:38:55 [notice] 1#1: OS: Linux 5.15.49-linuxkit
+2023/02/19 09:38:55 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/19 09:38:55 [notice] 1#1: start worker processes
+2023/02/19 09:38:55 [notice] 1#1: start worker process 20
+2023/02/19 09:38:55 [notice] 1#1: start worker process 21
+2023/02/19 09:38:55 [notice] 1#1: start worker process 22
+2023/02/19 09:38:55 [notice] 1#1: start worker process 23
+2023/02/19 09:39:14 [error] 20#20: *1 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /favicon.ico HTTP/1.1", host: "localhost:9002", referrer: "http://localhost:9002/"
+2023/02/19 09:39:22 [error] 21#21: *2 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /favicon.ico HTTP/1.1", host: "localhost:9002", referrer: "http://localhost:9002/"
+2023/02/19 09:39:30 [error] 21#21: *2 open() "/usr/share/nginx/html/index.html1" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /index.html1 HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:43:01 [error] 23#23: *4 "/usr/share/nginx/html/static/index.html" is not found (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/ HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:43:06 [error] 23#23: *4 open() "/usr/share/nginx/html/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:44:33 [notice] 33#33: signal process started
+2023/02/19 09:44:33 [notice] 1#1: signal 1 (SIGHUP) received from 33, reconfiguring
+2023/02/19 09:44:33 [notice] 1#1: reconfiguring
+2023/02/19 09:44:33 [notice] 1#1: using the "epoll" event method
+2023/02/19 09:44:33 [notice] 1#1: start worker processes
+2023/02/19 09:44:33 [notice] 1#1: start worker process 34
+2023/02/19 09:44:33 [notice] 1#1: start worker process 35
+2023/02/19 09:44:33 [notice] 1#1: start worker process 36
+2023/02/19 09:44:33 [notice] 1#1: start worker process 37
+2023/02/19 09:44:33 [notice] 20#20: gracefully shutting down
+2023/02/19 09:44:33 [notice] 23#23: gracefully shutting down
+2023/02/19 09:44:33 [notice] 21#21: gracefully shutting down
+2023/02/19 09:44:33 [notice] 22#22: gracefully shutting down
+2023/02/19 09:44:33 [notice] 20#20: exiting
+2023/02/19 09:44:33 [notice] 23#23: exiting
+2023/02/19 09:44:33 [notice] 21#21: exiting
+2023/02/19 09:44:33 [notice] 22#22: exiting
+2023/02/19 09:44:33 [notice] 20#20: exit
+2023/02/19 09:44:33 [notice] 23#23: exit
+2023/02/19 09:44:33 [notice] 21#21: exit
+2023/02/19 09:44:33 [notice] 22#22: exit
+2023/02/19 09:44:33 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2023/02/19 09:44:33 [notice] 1#1: worker process 20 exited with code 0
+2023/02/19 09:44:33 [notice] 1#1: worker process 23 exited with code 0
+2023/02/19 09:44:33 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:44:33 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2023/02/19 09:44:33 [notice] 1#1: worker process 22 exited with code 0
+2023/02/19 09:44:33 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:44:33 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2023/02/19 09:44:33 [notice] 1#1: worker process 21 exited with code 0
+2023/02/19 09:44:33 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:44:38 [error] 35#35: *7 open() "/user/share/nginx/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:45:42 [error] 35#35: *7 open() "/user/share/nginx/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:45:44 [error] 35#35: *7 open() "/user/share/nginx/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:45:44 [error] 35#35: *7 open() "/user/share/nginx/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:45:45 [error] 35#35: *7 open() "/user/share/nginx/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:45:56 [error] 35#35: *7 open() "/usr/share/nginx/html/static" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:46:04 [error] 35#35: *7 open() "/user/share/nginx/static/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:46:09 [error] 35#35: *7 open() "/user/share/nginx/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:46:29 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2023/02/19 09:46:29 [notice] 34#34: gracefully shutting down
+2023/02/19 09:46:29 [notice] 37#37: gracefully shutting down
+2023/02/19 09:46:29 [notice] 37#37: exiting
+2023/02/19 09:46:29 [notice] 36#36: gracefully shutting down
+2023/02/19 09:46:29 [notice] 35#35: gracefully shutting down
+2023/02/19 09:46:29 [notice] 34#34: exiting
+2023/02/19 09:46:29 [notice] 37#37: exit
+2023/02/19 09:46:29 [notice] 35#35: exiting
+2023/02/19 09:46:29 [notice] 34#34: exit
+2023/02/19 09:46:29 [notice] 35#35: exit
+2023/02/19 09:46:29 [notice] 1#1: signal 17 (SIGCHLD) received from 37
+2023/02/19 09:46:29 [notice] 1#1: worker process 37 exited with code 0
+2023/02/19 09:46:29 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:46:29 [notice] 1#1: signal 17 (SIGCHLD) received from 34
+2023/02/19 09:46:29 [notice] 1#1: worker process 34 exited with code 0
+2023/02/19 09:46:29 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:46:29 [notice] 1#1: signal 17 (SIGCHLD) received from 35
+2023/02/19 09:46:29 [notice] 1#1: worker process 35 exited with code 0
+2023/02/19 09:46:29 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:47:40 [notice] 1#1: using the "epoll" event method
+2023/02/19 09:47:40 [notice] 1#1: nginx/1.23.3
+2023/02/19 09:47:40 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2023/02/19 09:47:40 [notice] 1#1: OS: Linux 5.15.49-linuxkit
+2023/02/19 09:47:40 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/19 09:47:40 [notice] 1#1: start worker processes
+2023/02/19 09:47:40 [notice] 1#1: start worker process 20
+2023/02/19 09:47:40 [notice] 1#1: start worker process 21
+2023/02/19 09:47:40 [notice] 1#1: start worker process 22
+2023/02/19 09:47:40 [notice] 1#1: start worker process 23
+2023/02/19 09:47:48 [error] 21#21: *2 open() "/user/share/nginx/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:49:10 [notice] 30#30: signal process started
+2023/02/19 09:49:10 [notice] 1#1: signal 1 (SIGHUP) received from 30, reconfiguring
+2023/02/19 09:49:10 [notice] 1#1: reconfiguring
+2023/02/19 09:49:10 [notice] 1#1: using the "epoll" event method
+2023/02/19 09:49:10 [notice] 1#1: start worker processes
+2023/02/19 09:49:10 [notice] 1#1: start worker process 31
+2023/02/19 09:49:10 [notice] 1#1: start worker process 32
+2023/02/19 09:49:10 [notice] 1#1: start worker process 33
+2023/02/19 09:49:10 [notice] 1#1: start worker process 34
+2023/02/19 09:49:10 [notice] 20#20: gracefully shutting down
+2023/02/19 09:49:10 [notice] 20#20: exiting
+2023/02/19 09:49:10 [notice] 21#21: gracefully shutting down
+2023/02/19 09:49:10 [notice] 21#21: exiting
+2023/02/19 09:49:10 [notice] 22#22: gracefully shutting down
+2023/02/19 09:49:10 [notice] 23#23: gracefully shutting down
+2023/02/19 09:49:10 [notice] 23#23: exiting
+2023/02/19 09:49:10 [notice] 20#20: exit
+2023/02/19 09:49:10 [notice] 21#21: exit
+2023/02/19 09:49:10 [notice] 22#22: exiting
+2023/02/19 09:49:10 [notice] 23#23: exit
+2023/02/19 09:49:10 [notice] 22#22: exit
+2023/02/19 09:49:10 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2023/02/19 09:49:10 [notice] 1#1: worker process 21 exited with code 0
+2023/02/19 09:49:10 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:49:10 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2023/02/19 09:49:10 [notice] 1#1: worker process 22 exited with code 0
+2023/02/19 09:49:10 [notice] 1#1: worker process 20 exited with code 0
+2023/02/19 09:49:10 [notice] 1#1: worker process 23 exited with code 0
+2023/02/19 09:49:10 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:49:10 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2023/02/19 09:49:16 [notice] 37#37: signal process started
+2023/02/19 09:49:16 [notice] 1#1: signal 1 (SIGHUP) received from 37, reconfiguring
+2023/02/19 09:49:16 [notice] 1#1: reconfiguring
+2023/02/19 09:49:16 [notice] 1#1: using the "epoll" event method
+2023/02/19 09:49:16 [notice] 1#1: start worker processes
+2023/02/19 09:49:16 [notice] 1#1: start worker process 38
+2023/02/19 09:49:16 [notice] 1#1: start worker process 39
+2023/02/19 09:49:16 [notice] 1#1: start worker process 40
+2023/02/19 09:49:16 [notice] 1#1: start worker process 41
+2023/02/19 09:49:16 [notice] 31#31: gracefully shutting down
+2023/02/19 09:49:16 [notice] 32#32: gracefully shutting down
+2023/02/19 09:49:16 [notice] 34#34: gracefully shutting down
+2023/02/19 09:49:16 [notice] 33#33: gracefully shutting down
+2023/02/19 09:49:16 [notice] 33#33: exiting
+2023/02/19 09:49:16 [notice] 31#31: exiting
+2023/02/19 09:49:16 [notice] 32#32: exiting
+2023/02/19 09:49:16 [notice] 34#34: exiting
+2023/02/19 09:49:16 [notice] 33#33: exit
+2023/02/19 09:49:16 [notice] 31#31: exit
+2023/02/19 09:49:16 [notice] 32#32: exit
+2023/02/19 09:49:16 [notice] 34#34: exit
+2023/02/19 09:49:16 [notice] 1#1: signal 17 (SIGCHLD) received from 31
+2023/02/19 09:49:16 [notice] 1#1: worker process 31 exited with code 0
+2023/02/19 09:49:16 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:49:16 [notice] 1#1: signal 17 (SIGCHLD) received from 33
+2023/02/19 09:49:16 [notice] 1#1: worker process 33 exited with code 0
+2023/02/19 09:49:16 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:49:16 [notice] 1#1: signal 17 (SIGCHLD) received from 32
+2023/02/19 09:49:16 [notice] 1#1: worker process 32 exited with code 0
+2023/02/19 09:49:16 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:49:16 [notice] 1#1: signal 17 (SIGCHLD) received from 34
+2023/02/19 09:49:16 [notice] 1#1: worker process 34 exited with code 0
+2023/02/19 09:49:16 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:49:24 [error] 38#38: *3 open() "/usr/share/nginx/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:49:27 [error] 38#38: *3 open() "/usr/share/nginx/static/static/video/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/1.pdf HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:50:07 [notice] 42#42: signal process started
+2023/02/19 09:50:07 [notice] 1#1: signal 1 (SIGHUP) received from 42, reconfiguring
+2023/02/19 09:50:07 [notice] 1#1: reconfiguring
+2023/02/19 09:50:07 [notice] 1#1: using the "epoll" event method
+2023/02/19 09:50:07 [notice] 1#1: start worker processes
+2023/02/19 09:50:07 [notice] 1#1: start worker process 43
+2023/02/19 09:50:07 [notice] 1#1: start worker process 44
+2023/02/19 09:50:07 [notice] 1#1: start worker process 45
+2023/02/19 09:50:07 [notice] 1#1: start worker process 46
+2023/02/19 09:50:07 [notice] 38#38: gracefully shutting down
+2023/02/19 09:50:07 [notice] 39#39: gracefully shutting down
+2023/02/19 09:50:07 [notice] 41#41: gracefully shutting down
+2023/02/19 09:50:07 [notice] 41#41: exiting
+2023/02/19 09:50:07 [notice] 40#40: gracefully shutting down
+2023/02/19 09:50:07 [notice] 38#38: exiting
+2023/02/19 09:50:07 [notice] 41#41: exit
+2023/02/19 09:50:07 [notice] 40#40: exiting
+2023/02/19 09:50:07 [notice] 38#38: exit
+2023/02/19 09:50:07 [notice] 40#40: exit
+2023/02/19 09:50:07 [notice] 1#1: signal 17 (SIGCHLD) received from 38
+2023/02/19 09:50:07 [notice] 1#1: worker process 38 exited with code 0
+2023/02/19 09:50:07 [notice] 1#1: worker process 41 exited with code 0
+2023/02/19 09:50:07 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:50:07 [notice] 1#1: signal 17 (SIGCHLD) received from 40
+2023/02/19 09:50:07 [notice] 1#1: worker process 40 exited with code 0
+2023/02/19 09:50:07 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:50:10 [notice] 39#39: exiting
+2023/02/19 09:50:10 [notice] 39#39: exit
+2023/02/19 09:50:10 [notice] 1#1: signal 17 (SIGCHLD) received from 39
+2023/02/19 09:50:10 [notice] 1#1: worker process 39 exited with code 0
+2023/02/19 09:50:10 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/19 09:50:17 [error] 43#43: *5 directory index of "/usr/share/nginx/" is forbidden, client: 172.17.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:50:17 [error] 43#43: *5 open() "/usr/share/nginx/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /favicon.ico HTTP/1.1", host: "localhost:9002", referrer: "http://localhost:9002/"
+2023/02/19 09:50:18 [error] 43#43: *5 directory index of "/usr/share/nginx/" is forbidden, client: 172.17.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:50:19 [error] 43#43: *5 directory index of "/usr/share/nginx/" is forbidden, client: 172.17.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:9002"
+2023/02/19 09:50:19 [error] 43#43: *5 open() "/usr/share/nginx/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /favicon.ico HTTP/1.1", host: "localhost:9002", referrer: "http://localhost:9002/"
+2023/02/19 09:50:23 [error] 43#43: *5 directory index of "/usr/share/nginx/" is forbidden, client: 172.17.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:9002"
+2023/02/19 12:05:44 [error] 46#46: *8 directory index of "/usr/share/nginx/" is forbidden, client: 172.17.0.1, server: , request: "GET / HTTP/1.1", host: "192.168.1.104:9002"
+2023/02/19 12:05:44 [error] 46#46: *8 open() "/usr/share/nginx/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /favicon.ico HTTP/1.1", host: "192.168.1.104:9002", referrer: "http://192.168.1.104:9002/"
+2023/02/19 12:06:03 [error] 43#43: *9 directory index of "/usr/share/nginx/" is forbidden, client: 172.17.0.1, server: , request: "GET / HTTP/1.1", host: "localhost:9002"
+2023/02/19 12:06:03 [error] 43#43: *9 open() "/usr/share/nginx/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /favicon.ico HTTP/1.1", host: "localhost:9002", referrer: "http://localhost:9002/"
+2023/02/19 12:06:29 [error] 43#43: *11 open() "/usr/share/nginx/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /favicon.ico HTTP/1.1", host: "192.168.1.104:9002", referrer: "http://192.168.1.104:9002/html/index.html"
+2023/02/19 12:06:37 [error] 43#43: *11 open() "/usr/share/nginx/static/1.pdf" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/1.pdf HTTP/1.1", host: "192.168.1.104:9002"
+2023/02/19 13:11:50 [error] 43#43: *16 "/usr/share/nginx/static/video/http:/localhost:9902/static/video/index.html" is not found (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/http://localhost:9902/static/video/ HTTP/1.1", host: "localhost:9002"
+2023/02/19 14:11:07 [error] 43#43: *26 "/usr/share/nginx/static/video/http:/localhost:9902/static/video/index.html" is not found (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/http://localhost:9902/static/video/ HTTP/1.1", host: "localhost:9002"
+2023/02/19 14:11:26 [error] 43#43: *29 "/usr/share/nginx/static/video/http:/localhost:9902/static/video/index.html" is not found (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/http://localhost:9902/static/video/ HTTP/1.1", host: "localhost:9002"
+2023/02/19 14:11:41 [error] 44#44: *33 "/usr/share/nginx/static/video/http:/localhost:9902/static/video/index.html" is not found (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/http://localhost:9902/static/video/ HTTP/1.1", host: "localhost:9002"
+2023/02/19 14:11:47 [error] 44#44: *35 "/usr/share/nginx/static/video/http:/localhost:9902/static/video/index.html" is not found (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/http://localhost:9902/static/video/ HTTP/1.1", host: "localhost:9002"
+2023/02/19 14:15:36 [error] 44#44: *40 "/usr/share/nginx/static/video/http:/localhost:9902/static/video/index.html" is not found (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/http://localhost:9902/static/video/ HTTP/1.1", host: "localhost:9002"
+2023/02/19 14:15:45 [error] 45#45: *42 "/usr/share/nginx/static/video/http:/localhost:9902/static/video/index.html" is not found (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/http://localhost:9902/static/video/ HTTP/1.1", host: "localhost:9002"
+2023/02/19 14:15:55 [error] 45#45: *47 "/usr/share/nginx/static/video/http:/localhost:9902/static/video/index.html" is not found (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /static/video/http://localhost:9902/static/video/ HTTP/1.1", host: "localhost:9002"
+2023/02/20 04:25:16 [notice] 1#1: using the "epoll" event method
+2023/02/20 04:25:16 [notice] 1#1: nginx/1.23.3
+2023/02/20 04:25:16 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2023/02/20 04:25:16 [notice] 1#1: OS: Linux 5.15.49-linuxkit
+2023/02/20 04:25:16 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/20 04:25:16 [notice] 1#1: start worker processes
+2023/02/20 04:25:16 [notice] 1#1: start worker process 21
+2023/02/20 04:25:16 [notice] 1#1: start worker process 22
+2023/02/20 04:25:16 [notice] 1#1: start worker process 23
+2023/02/20 04:25:16 [notice] 1#1: start worker process 24
+2023/02/21 05:38:39 [notice] 1#1: using the "epoll" event method
+2023/02/21 05:38:39 [notice] 1#1: nginx/1.23.3
+2023/02/21 05:38:39 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2023/02/21 05:38:39 [notice] 1#1: OS: Linux 5.15.49-linuxkit
+2023/02/21 05:38:39 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/21 05:38:39 [notice] 1#1: start worker processes
+2023/02/21 05:38:39 [notice] 1#1: start worker process 20
+2023/02/21 05:38:39 [notice] 1#1: start worker process 21
+2023/02/21 05:38:39 [notice] 1#1: start worker process 22
+2023/02/21 05:38:39 [notice] 1#1: start worker process 23
+2023/02/21 09:38:21 [error] 21#21: *291 directory index of "/usr/share/nginx/" is forbidden, client: 172.17.0.1, server: , request: "GET / HTTP/1.1", host: "rdstihz.tpddns.cn:9002"
+2023/02/21 09:38:21 [error] 21#21: *291 open() "/usr/share/nginx/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: , request: "GET /favicon.ico HTTP/1.1", host: "rdstihz.tpddns.cn:9002", referrer: "http://rdstihz.tpddns.cn:9002/"
+2023/02/21 14:08:56 [notice] 1#1: using the "epoll" event method
+2023/02/21 14:08:56 [notice] 1#1: nginx/1.23.3
+2023/02/21 14:08:56 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2023/02/21 14:08:56 [notice] 1#1: OS: Linux 5.15.49-linuxkit
+2023/02/21 14:08:56 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/21 14:08:56 [notice] 1#1: start worker processes
+2023/02/21 14:08:56 [notice] 1#1: start worker process 20
+2023/02/21 14:08:56 [notice] 1#1: start worker process 21
+2023/02/21 14:08:56 [notice] 1#1: start worker process 22
+2023/02/21 14:08:56 [notice] 1#1: start worker process 23
+2023/02/21 14:10:59 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2023/02/21 14:10:59 [notice] 21#21: gracefully shutting down
+2023/02/21 14:10:59 [notice] 21#21: exiting
+2023/02/21 14:10:59 [notice] 20#20: gracefully shutting down
+2023/02/21 14:10:59 [notice] 20#20: exiting
+2023/02/21 14:10:59 [notice] 22#22: gracefully shutting down
+2023/02/21 14:10:59 [notice] 22#22: exiting
+2023/02/21 14:10:59 [notice] 23#23: gracefully shutting down
+2023/02/21 14:10:59 [notice] 23#23: exiting
+2023/02/21 14:10:59 [notice] 21#21: exit
+2023/02/21 14:10:59 [notice] 20#20: exit
+2023/02/21 14:10:59 [notice] 22#22: exit
+2023/02/21 14:10:59 [notice] 23#23: exit
+2023/02/21 14:10:59 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2023/02/21 14:10:59 [notice] 1#1: worker process 21 exited with code 0
+2023/02/21 14:10:59 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/21 14:10:59 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2023/02/21 14:10:59 [notice] 1#1: worker process 20 exited with code 0
+2023/02/21 14:10:59 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/21 14:10:59 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2023/02/21 14:10:59 [notice] 1#1: worker process 22 exited with code 0
+2023/02/21 14:10:59 [notice] 1#1: worker process 23 exited with code 0
+2023/02/21 14:10:59 [notice] 1#1: exit
+2023/02/21 14:11:01 [notice] 1#1: using the "epoll" event method
+2023/02/21 14:11:01 [notice] 1#1: nginx/1.23.3
+2023/02/21 14:11:01 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2023/02/21 14:11:01 [notice] 1#1: OS: Linux 5.15.49-linuxkit
+2023/02/21 14:11:01 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/21 14:11:01 [notice] 1#1: start worker processes
+2023/02/21 14:11:01 [notice] 1#1: start worker process 20
+2023/02/21 14:11:01 [notice] 1#1: start worker process 21
+2023/02/21 14:11:01 [notice] 1#1: start worker process 22
+2023/02/21 14:11:01 [notice] 1#1: start worker process 23
+2023/02/21 14:11:51 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2023/02/21 14:11:51 [notice] 20#20: gracefully shutting down
+2023/02/21 14:11:51 [notice] 20#20: exiting
+2023/02/21 14:11:51 [notice] 22#22: gracefully shutting down
+2023/02/21 14:11:51 [notice] 22#22: exiting
+2023/02/21 14:11:51 [notice] 21#21: gracefully shutting down
+2023/02/21 14:11:51 [notice] 21#21: exiting
+2023/02/21 14:11:51 [notice] 23#23: gracefully shutting down
+2023/02/21 14:11:51 [notice] 23#23: exiting
+2023/02/21 14:11:51 [notice] 20#20: exit
+2023/02/21 14:11:51 [notice] 22#22: exit
+2023/02/21 14:11:51 [notice] 21#21: exit
+2023/02/21 14:11:51 [notice] 23#23: exit
+2023/02/21 14:11:51 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2023/02/21 14:11:51 [notice] 1#1: worker process 20 exited with code 0
+2023/02/21 14:11:51 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/21 14:11:51 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2023/02/21 14:11:51 [notice] 1#1: worker process 22 exited with code 0
+2023/02/21 14:11:51 [notice] 1#1: signal 29 (SIGIO) received
+2023/02/21 14:11:51 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2023/02/21 14:11:51 [notice] 1#1: worker process 21 exited with code 0
+2023/02/21 14:11:51 [notice] 1#1: worker process 23 exited with code 0
+2023/02/21 14:11:51 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2023/02/21 14:11:51 [notice] 1#1: exit
+2023/02/21 14:12:05 [notice] 1#1: using the "epoll" event method
+2023/02/21 14:12:05 [notice] 1#1: nginx/1.23.3
+2023/02/21 14:12:05 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6) 
+2023/02/21 14:12:05 [notice] 1#1: OS: Linux 5.15.49-linuxkit
+2023/02/21 14:12:05 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/21 14:12:05 [notice] 1#1: start worker processes
+2023/02/21 14:12:05 [notice] 1#1: start worker process 20
+2023/02/21 14:12:05 [notice] 1#1: start worker process 21
+2023/02/21 14:12:05 [notice] 1#1: start worker process 22
+2023/02/21 14:12:05 [notice] 1#1: start worker process 23
